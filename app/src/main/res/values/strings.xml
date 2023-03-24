@@ -10,6 +10,7 @@
     <string name="bottom_nav_history">Historique</string>
     <string name="bottom_nav_profile">Profil</string>
 
+
     <!-- Game page -->
     <string name="game_page_title">Produit</string>
     <string name="game_page_question"> Quel est le prix de cet objet ?</string>
