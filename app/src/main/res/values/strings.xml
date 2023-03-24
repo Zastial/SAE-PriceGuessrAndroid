@@ -31,6 +31,10 @@
     <!-- Formular -->
     <string name="form_label_email">Email</string>
     <string name="form_label_password">Mot de passe</string>
+    <string name="form_register">S\'inscrire</string>
+    <string name="form_forget_password">Mot de passe oublié</string>
+    <string name="form_confirm_password">Confirmer vôtre mot de passe</string>
+    <string name="form_already_account">Déjà un compte ?</string>
 
 
     <!-- Button -->
