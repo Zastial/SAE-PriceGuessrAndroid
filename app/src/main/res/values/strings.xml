@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">PriceGuessr</string>
     <string name="default_text">Default</string>
+    <string name="product_name">Default product name</string>
+    <string name="product_description">Default product description bsdljk lsjdfljds sl kjfj dsld f sflj sdfjsljfl jlsdjf s jlsjfl sjdflsjf sjflj slf lsjflsjf jsljflsdjfl sfslfj sljflsjf ljsflj s</string>
+    <string name="product_price">00.00</string>
+    <string name="product_currency">€</string>
 
-    
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_history">Historique</string>
+    <string name="bottom_nav_profile">Profil</string>
+
     <!-- Game page -->
     <string name="game_page_title">Produit</string>
     <string name="game_page_question"> Quel est le prix de cet objet ?</string>
@@ -12,15 +19,12 @@
     <string name="hisory_page_title">Historique</string>
 
 
-
     <!-- Parameter page -->
     <string name="parameter_page_title">Paramètres</string>
     <string name="parameter_page_section_personnal_info">Informations Personnelles</string>
     <string name="parameter_page_section_password">Mot de passe</string>
 
     <string name="test">test</string>
-
-
 
 
     <!-- Formular -->
@@ -34,4 +38,6 @@
     <string name="btn_valider">Valider</string>
     <string name="btn_suivant">Suivant</string>
     <string name="btn_modify_info">Modifier mes informations</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
