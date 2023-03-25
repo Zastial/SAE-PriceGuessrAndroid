@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import fr.etudiant.priceguessr.R
 import fr.etudiant.priceguessr.adapter.ProductAdapter
+import fr.etudiant.priceguessr.adapter.ProductDecoration
 
 
 class HistoryFragment : Fragment() {
@@ -20,6 +21,7 @@ class HistoryFragment : Fragment() {
 
         Log.e("TAGAPP", (verticalRecyclerView == null).toString())
         verticalRecyclerView.adapter = ProductAdapter()
+        verticalRecyclerView.addItemDecoration(ProductDecoration())
 
         return view
     }
