@@ -4,6 +4,7 @@
     <dimen name="margin_page">30dp</dimen>
     <dimen name="default_padding_page">20dp</dimen>
     <dimen name="padding_page">40dp</dimen>
+    <dimen name="param_item_padding">10dp</dimen>
     <dimen name="form_margin">16dp</dimen>
     <dimen name="item_margin">10dp</dimen>
     <dimen name="item_length_description">200dp</dimen>
