@@ -15,4 +15,6 @@
     <color name="red">#EE0909</color>
     <color name="orange">#E99009</color>
     <color name="green">#07AB04</color>
+    
+    <color name="btn_nav_item"></color>
 </resources>
