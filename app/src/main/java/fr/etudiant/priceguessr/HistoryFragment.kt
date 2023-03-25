@@ -8,5 +8,4 @@ import android.view.ViewGroup
 
 
 class HistoryFragment : Fragment() {
-
 }

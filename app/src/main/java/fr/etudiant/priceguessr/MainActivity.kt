@@ -9,11 +9,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Auth system, lunch login activity if user is not logged
+
+        if (isLoggedIn()){
+
+        } else {
+
+        }
+
+
+
+
+
         //injecter le fragment dans la boite (fragment container)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, GameFragment())
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    // verify ..
+    private fun isLoggedIn(): Boolean {
+        var isLogged = true
+
+        return isLogged
     }
 
     private fun loadFrangment(fragment: Fragment) {
