@@ -1,4 +1,4 @@
-package fr.etudiant.priceguessr
+package fr.etudiant.priceguessr.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

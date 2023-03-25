@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">PriceGuessr</string>
     <string name="default_text">Default</string>
-    <string name="product_name">Default product name</string>
-    <string name="product_description">Default product description bsdljk lsjdfljds sl kjfj dsld f sflj sdfjsljfl jlsdjf s jlsjfl sjdflsjf sjflj slf lsjflsjf jsljflsdjfl sfslfj sljflsjf ljsflj s</string>
-    <string name="product_price">00.00</string>
+    <string name="default_product_name">Default product name</string>
+    <string name="default_product_description">Default product descriptions but if we want we can make a longer text to be more consistent</string>
+    <string name="default_product_price">00.00</string>
     <string name="product_currency">€</string>
 
     <string name="bottom_nav_home">Home</string>
@@ -46,4 +46,5 @@
     <string name="btn_modify_info">Modifier mes informations</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="arrow_icon">arrow icon</string>
 </resources>

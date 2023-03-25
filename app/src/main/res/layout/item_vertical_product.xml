@@ -15,10 +15,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/image_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/default_img"
+            android:contentDescription="@string/default_product_name"
+            android:src="@drawable/default_img"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -26,15 +28,39 @@
         android:id="@+id/view_separation"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/orange"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/name_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/product_name"
+        android:text="@string/default_product_name"
         app:layout_constraintBottom_toTopOf="@+id/view_separation"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/cardView" />
+        android:layout_marginStart="@dimen/item_margin"/>
+
+    <TextView
+        android:id="@+id/description_item"
+        android:layout_width="@dimen/item_length_description"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/default_product_description"
+        app:layout_constraintStart_toStartOf="@+id/name_item"
+        app:layout_constraintTop_toBottomOf="@+id/view_separation" />
+
+    <ImageButton
+        android:id="@+id/arrow_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_baseline_arrow_forward_24"
+        android:background="@null"
+        android:layout_marginEnd="@dimen/item_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cardView"
+        android:contentDescription="@string/arrow_icon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

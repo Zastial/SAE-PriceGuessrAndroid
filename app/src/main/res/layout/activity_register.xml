@@ -84,7 +84,7 @@
         android:id="@+id/register_page_btn_password_visibility"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="none"
+        android:background="@null"
         app:layout_constraintBottom_toBottomOf="@+id/register_page_input_confirm_password"
         app:layout_constraintEnd_toEndOf="@+id/register_page_input_confirm_password"
         app:layout_constraintTop_toTopOf="@+id/register_page_input_confirm_password"

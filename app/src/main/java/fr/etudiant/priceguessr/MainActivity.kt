@@ -3,6 +3,8 @@ package fr.etudiant.priceguessr
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import fr.etudiant.priceguessr.fragments.GameFragment
+import fr.etudiant.priceguessr.fragments.HistoryFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         //injecter le fragment dans la boite (fragment container)
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, GameFragment())
+        transaction.replace(R.id.fragment_container, HistoryFragment())
         transaction.addToBackStack(null)
         transaction.commit()
     }

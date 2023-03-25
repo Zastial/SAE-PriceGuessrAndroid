@@ -66,7 +66,7 @@
         android:id="@+id/login_page_btn_password_visibility"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="none"
+        android:background="@null"
         app:layout_constraintBottom_toBottomOf="@+id/login_page_input_password"
         app:layout_constraintEnd_toEndOf="@+id/login_page_input_password"
         app:layout_constraintTop_toTopOf="@+id/login_page_input_password"
@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin_page"
         android:text="@string/form_register"
-        android:background="none"
+        android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/login_page_text_already_account"
         app:layout_constraintTop_toBottomOf="@+id/login_page_btn_login" />
