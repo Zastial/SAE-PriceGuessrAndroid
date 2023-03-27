@@ -19,7 +19,7 @@ class HistoryFragment : Fragment() {
 
         val verticalRecyclerView = view.findViewById<RecyclerView>(R.id.vertical_recycler_view)
 
-        Log.e("TAGAPP", (verticalRecyclerView == null).toString())
+
         verticalRecyclerView.adapter = ProductAdapter()
         verticalRecyclerView.addItemDecoration(ProductDecoration())
 

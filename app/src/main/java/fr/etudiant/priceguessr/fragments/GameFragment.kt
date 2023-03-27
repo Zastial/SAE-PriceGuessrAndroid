@@ -1,6 +1,7 @@
 package fr.etudiant.priceguessr.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import fr.etudiant.priceguessr.Constants
 import fr.etudiant.priceguessr.Product
 import fr.etudiant.priceguessr.R
@@ -19,17 +21,19 @@ class GameFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view = inflater?.inflate(R.layout.fragment_game, container, false)
+        var view = inflater.inflate(R.layout.fragment_game, container, false)
 
-
-        var stringRequest = object : StringRequest(Request.Method.GET, Constants.API_GET_DALY_PRODUCT,
+        val queue = Volley.newRequestQueue(context)
+        var stringRequest = object : StringRequest(
+            Request.Method.GET,
+            Constants.API_BASE_URl + Constants.API_GET_DALY_PRODUCT,
             {response ->
 
                 // get JsonObject ?
-
+                Log.e("TAG", "resp" + response)
 
                 try {
-                    var dailyProducts = Json.decodeFromString<MutableList<Product>>(response)
+                    //var dailyProducts = Json.decodeFromString<MutableList<Product>>(response)
                 } catch (e : Exception) {
                     Toast.makeText(activity, "Erreur lors de la récupération des données." , Toast.LENGTH_LONG).show()
                 }
@@ -40,18 +44,12 @@ class GameFragment : Fragment() {
             },
             {error ->
                 // user
-
+                Log.e("TAG", "error "+ error)
             }) {
-
-            // set authorization header with Json Web Token
-            override fun getHeaders(): MutableMap<String, String> {
-
-                return super.getHeaders()
-            }
-
 
         }
 
+        queue.add(stringRequest)
 
         return view
     }

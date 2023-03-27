@@ -18,11 +18,6 @@ class MainActivity : AppCompatActivity() {
 
         // Auth system, lunch login activity if user is not logged
 
-        if (isLoggedIn()){
-
-        } else {
-
-        }
 
         //first load GameFragment()
         loadFragment(GameFragment())
