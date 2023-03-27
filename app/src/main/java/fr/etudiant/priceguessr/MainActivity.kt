@@ -1,5 +1,6 @@
 package fr.etudiant.priceguessr
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -49,17 +50,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-        //injecter le fragment dans la boite (fragment container)
-       /* val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, ProfileFragment())
-        transaction.addToBackStack(null)
-        transaction.commit()*/
     }
 
-    // verify ..
+    // verify is the user hav
     private fun isLoggedIn(): Boolean {
+        // get sharedPreferences of the app
+        val sharedPreferences = getSharedPreferences("PriceGuessr", MODE_PRIVATE)
+
+        sharedPreferences.getString("token","")
+
+
+
         var isLogged = true
 
         return isLogged
