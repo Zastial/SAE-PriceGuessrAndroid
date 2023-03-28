@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import com.android.volley.toolbox.Volley
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +23,13 @@ class LoginActivity : AppCompatActivity() {
 
 
         btnConnexion.setOnClickListener {
-
+            val queue = Volley.newRequestQueue(context)
         }
+    }
+
+    override fun onBackPressed() {
+        //can not return to the previous task
+        moveTaskToBack(false)
     }
 
 }

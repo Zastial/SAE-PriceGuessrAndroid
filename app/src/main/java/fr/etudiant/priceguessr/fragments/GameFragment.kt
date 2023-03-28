@@ -1,5 +1,6 @@
 package fr.etudiant.priceguessr.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +12,9 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.etudiant.priceguessr.Constants
-import fr.etudiant.priceguessr.Product
+import fr.etudiant.priceguessr.LoginActivity
+import fr.etudiant.priceguessr.MainActivity
 import fr.etudiant.priceguessr.R
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 
 
 class GameFragment : Fragment() {
@@ -42,8 +42,12 @@ class GameFragment : Fragment() {
 
             },
             {error ->
-                // user
+                /* if error == 401 (!authorization) start login activity */
                 Log.e("TAG", "error "+ error)
+                Log.e("TAG", "Starting Login activity ... ")
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivity(intent)
+
             }) {
 
         }
