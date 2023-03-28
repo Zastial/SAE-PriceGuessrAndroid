@@ -40,19 +40,21 @@ class LoginActivity : AppCompatActivity() {
                 Method.POST,
                 Constants.API_BASE_URl + Constants.API_USER_AUTH,
                 {response ->
-                    Log.e("TAG", response)
-                    //finish()
+                    Log.e("TAG", "login success response : " + JSONObject(response).getString("token"))
+                    val token = JSONObject(response).getString("token")
+                    Token().setToken(this,token)
+                    finish()
                 },
                 {error ->
                     try {
                         val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
-                        if (error.networkResponse.statusCode == 400) {
-                            Toast.makeText(this, responseMessage, Toast.LENGTH_SHORT).show()
-                        } else {
-                            Constants.showUnknownToastError(this)
+                        val code = error.networkResponse.statusCode
+                        when(code) {
+                            400 -> Toast.makeText(this, responseMessage, Toast.LENGTH_SHORT).show()
+                            else -> Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                         }
                     } catch (e : Error) {
-                            Constants.showUnknownToastError(this)
+                        Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                     }
                 }
                 ) {

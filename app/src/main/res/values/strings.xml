@@ -60,5 +60,7 @@
     <string name="toast_password_confirm_invalid">"Les mots de passe ne sont pas les mêmes"</string>
     <string name="toast_register_sucess">Inscription réussie</string>
 
+    <string name="unknown_error">Erreur Inconnue</string>
+
 
 </resources>

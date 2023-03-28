@@ -11,10 +11,7 @@ import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import fr.etudiant.priceguessr.Constants
-import fr.etudiant.priceguessr.LoginActivity
-import fr.etudiant.priceguessr.MainActivity
-import fr.etudiant.priceguessr.R
+import fr.etudiant.priceguessr.*
 
 
 class GameFragment : Fragment() {
@@ -30,8 +27,9 @@ class GameFragment : Fragment() {
             Request.Method.GET,
             Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY,
             {response ->
-                // get JsonObject ?
+
                 Log.e("TAG", "resp " + response)
+
                 try {
                     //var dailyProducts = Json.decodeFromString<MutableList<Product>>(response)
                 } catch (e : Exception) {
@@ -47,7 +45,12 @@ class GameFragment : Fragment() {
                 startActivity(intent)
 
             }) {
-
+            /* set token into header of request */
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = mutableMapOf<String, String>()
+                headers["Authorization"] = Token().getToken(activity!!.parent)
+                return headers
+            }
         }
 
         queue.add(loadProductRequest)

@@ -44,23 +44,26 @@ class RegisterActivity : AppCompatActivity() {
                 Method.POST,
                 Constants.API_BASE_URl + Constants.API_USER_POST_REGISTER,
                 {response ->
-                    Log.e("TAG", response)
+                    Log.e("TAG", "register success response : " + response)
                     Toast.makeText(this, getString(R.string.toast_register_sucess), Toast.LENGTH_SHORT).show()
                     finish()
 
                 },
                 {error ->
                     try {
+
                         /* decoder le message */
                         val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
-                        /* unauthorized code 400 */
-                        if (error.networkResponse.statusCode == 400) {
-                            Toast.makeText(this, responseMessage , Toast.LENGTH_SHORT).show()
-                        } else {
-                            Constants.showUnknownToastError(this)
+                        Log.e("TAG", responseMessage)
+                        val code = error.networkResponse.statusCode
+                        when(code) {
+                            400 -> Toast.makeText(this, responseMessage , Toast.LENGTH_SHORT).show()
+                            409 ->  Toast.makeText(this, responseMessage , Toast.LENGTH_SHORT).show()
+                            else -> Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+
                         }
                     } catch (e : Error) {
-                        Constants.showUnknownToastError(this)
+                        Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                     }
                 }
             ) {

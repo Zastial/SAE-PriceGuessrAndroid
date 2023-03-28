@@ -28,11 +28,5 @@ class Constants {
         * */
         val API_USER_AUTH = "/user/auth"
 
-
-
-
-        fun showUnknownToastError(context: Context) {
-            Toast.makeText(context, "Erreur inconnue", Toast.LENGTH_SHORT).show()
-        }
     }
 }
