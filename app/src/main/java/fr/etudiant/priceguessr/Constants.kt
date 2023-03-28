@@ -1,5 +1,8 @@
 package fr.etudiant.priceguessr
 
+import android.content.Context
+import android.widget.Toast
+
 class Constants {
 
     companion object {
@@ -24,5 +27,12 @@ class Constants {
         * Authentificate user with login and password
         * */
         val API_USER_AUTH = "/user/auth"
+
+
+
+
+        fun showUnknownToastError(context: Context) {
+            Toast.makeText(context, "Erreur inconnue", Toast.LENGTH_SHORT).show()
+        }
     }
 }

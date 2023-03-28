@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="80dp"
-        android:text="@string/form_label_email"
+        android:text="@string/form_label_login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_page_app_name" />
 
@@ -34,7 +34,7 @@
 
 
     <EditText
-        android:id="@+id/login_page_input_email"
+        android:id="@+id/login_page_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
@@ -48,8 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/form_margin"
         android:text="@string/form_label_password"
-        app:layout_constraintStart_toStartOf="@+id/login_page_input_email"
-        app:layout_constraintTop_toBottomOf="@+id/login_page_input_email" />
+        app:layout_constraintStart_toStartOf="@+id/login_page_input"
+        app:layout_constraintTop_toBottomOf="@+id/login_page_input" />
 
 
     <EditText

@@ -23,28 +23,26 @@ class GameFragment : Fragment() {
 
         var view = inflater.inflate(R.layout.fragment_game, container, false)
 
+
+        /* request to load product of the day */
         val queue = Volley.newRequestQueue(context)
-        var stringRequest = object : StringRequest(
+        val loadProductRequest = object : StringRequest(
             Request.Method.GET,
             Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY,
             {response ->
                 // get JsonObject ?
                 Log.e("TAG", "resp " + response)
-
                 try {
                     //var dailyProducts = Json.decodeFromString<MutableList<Product>>(response)
                 } catch (e : Exception) {
                     Toast.makeText(activity, "Erreur lors de la récupération des données." , Toast.LENGTH_LONG).show()
                 }
-                // render products and implement game logic
-
-
-
             },
             {error ->
                 /* if error == 401 (!authorization) start login activity */
                 Log.e("TAG", "error "+ error)
                 Log.e("TAG", "Starting Login activity ... ")
+
                 val intent = Intent(context, LoginActivity::class.java)
                 startActivity(intent)
 
@@ -52,7 +50,7 @@ class GameFragment : Fragment() {
 
         }
 
-        queue.add(stringRequest)
+        queue.add(loadProductRequest)
 
         return view
     }

@@ -18,11 +18,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Auth system, lunch login activity if user is not logged
+
 
 
         //first load GameFragment()
         loadFragment(GameFragment())
+
         // navigation View Logic
         val navigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         navigationView.setOnItemSelectedListener {

@@ -30,13 +30,15 @@
 
 
     <!-- Formular -->
-    <string name="form_label_email">Email</string>
+    <string name="form_label_login">Login</string>
     <string name="form_label_password">Mot de passe</string>
     <string name="form_register">S\'inscrire</string>
     <string name="form_login">Se connecter</string>
     <string name="form_forget_password">Mot de passe oublié</string>
     <string name="form_confirm_password">Confirmer vôtre mot de passe</string>
     <string name="form_already_account">Vous avez déjà un compte ?</string>
+
+
 
 
     <!-- Button -->
@@ -50,6 +52,13 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="arrow_icon">arrow icon</string>
+
+    <!-- Toast -->
+    <string name="toast_input_page_invalid">Veuillez renseigner un login et mot de passe</string>
+    <string name="toast_error_inconnue">Erreur inconnue</string>
+    <string name="toast_invalid_credentials">Login ou mot de passe invalide</string>
+    <string name="toast_password_confirm_invalid">"Les mots de passe ne sont pas les mêmes"</string>
+    <string name="toast_register_sucess">Inscription réussie</string>
 
 
 </resources>

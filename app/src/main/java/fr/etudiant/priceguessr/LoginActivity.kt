@@ -1,11 +1,16 @@
 package fr.etudiant.priceguessr
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
 
-        var emailInput = findViewById<EditText>(R.id.login_page_input_email)
+        var loginInput = findViewById<EditText>(R.id.login_page_input)
         var passwordInput = findViewById<EditText>(R.id.login_page_input_password)
         var btnPasswordVisibility = findViewById<ImageButton>(R.id.login_page_btn_password_visibility)
         var btnConnexion = findViewById<Button>(R.id.login_page_btn_login)
@@ -23,8 +28,51 @@ class LoginActivity : AppCompatActivity() {
 
 
         btnConnexion.setOnClickListener {
-            val queue = Volley.newRequestQueue(context)
+            val login = loginInput.text.toString()
+            val password =  passwordInput.text.toString()
+            if (login.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, getString(R.string.toast_input_page_invalid), Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val queue = Volley.newRequestQueue(this)
+            var loginRequest = object : StringRequest(
+                Method.POST,
+                Constants.API_BASE_URl + Constants.API_USER_AUTH,
+                {response ->
+                    Log.e("TAG", response)
+                    //finish()
+                },
+                {error ->
+                    try {
+                        val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
+                        if (error.networkResponse.statusCode == 400) {
+                            Toast.makeText(this, responseMessage, Toast.LENGTH_SHORT).show()
+                        } else {
+                            Constants.showUnknownToastError(this)
+                        }
+                    } catch (e : Error) {
+                            Constants.showUnknownToastError(this)
+                    }
+                }
+                ) {
+                override fun getParams(): MutableMap<String, String>? {
+                    val params = hashMapOf<String, String>()
+                    params["login"] = login
+                    params["password"] = password
+                    return params
+                }
+            }
+            queue.add(loginRequest)
         }
+
+
+        btnRedirectRegister.setOnClickListener {
+            val registerIntent = Intent(this, RegisterActivity::class.java)
+            startActivity(registerIntent)
+        }
+
+
     }
 
     override fun onBackPressed() {
