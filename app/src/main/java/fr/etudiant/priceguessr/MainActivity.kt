@@ -51,10 +51,7 @@ class MainActivity : AppCompatActivity() {
     private fun isLoggedIn(): Boolean {
         // get sharedPreferences of the app
         val sharedPreferences = getSharedPreferences("PriceGuessr", MODE_PRIVATE)
-
         sharedPreferences.getString("token","")
-
-
 
         var isLogged = true
 

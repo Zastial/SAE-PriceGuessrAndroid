@@ -26,11 +26,10 @@ class GameFragment : Fragment() {
         val queue = Volley.newRequestQueue(context)
         var stringRequest = object : StringRequest(
             Request.Method.GET,
-            Constants.API_BASE_URl + Constants.API_GET_DALY_PRODUCT,
+            Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY,
             {response ->
-
                 // get JsonObject ?
-                Log.e("TAG", "resp" + response)
+                Log.e("TAG", "resp " + response)
 
                 try {
                     //var dailyProducts = Json.decodeFromString<MutableList<Product>>(response)
