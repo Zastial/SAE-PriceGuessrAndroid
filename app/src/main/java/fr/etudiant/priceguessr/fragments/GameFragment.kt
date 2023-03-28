@@ -1,5 +1,6 @@
 package fr.etudiant.priceguessr.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.etudiant.priceguessr.*
+import kotlinx.serialization.json.Json
 
 
 class GameFragment : Fragment() {
@@ -28,9 +30,9 @@ class GameFragment : Fragment() {
             Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY,
             {response ->
 
-                Log.e("TAG", "resp " + response)
-
                 try {
+                    /* récupération des données */
+                    Log.e("TAG", "respone success game activity" + response.toString())
                     //var dailyProducts = Json.decodeFromString<MutableList<Product>>(response)
                 } catch (e : Exception) {
                     Toast.makeText(activity, "Erreur lors de la récupération des données." , Toast.LENGTH_LONG).show()
@@ -48,7 +50,8 @@ class GameFragment : Fragment() {
             /* set token into header of request */
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = mutableMapOf<String, String>()
-                headers["Authorization"] = Token().getToken(activity!!.parent)
+                Log.e("TOKEN", Token().getToken(activity as Activity))
+                headers["Authorization"] = Token().getToken(activity as Activity)
                 return headers
             }
         }
