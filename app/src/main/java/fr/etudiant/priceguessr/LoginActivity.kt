@@ -25,9 +25,6 @@ class LoginActivity : AppCompatActivity() {
         val btnConnexion = findViewById<Button>(R.id.login_page_btn_login)
         val btnRedirectRegister = findViewById<Button>(R.id.login_page_btn_register)
 
-
-
-
         btnConnexion.setOnClickListener {
             val login = loginInput.text.toString()
             val password =  passwordInput.text.toString()
@@ -45,7 +42,11 @@ class LoginActivity : AppCompatActivity() {
                         Log.e("LOGIN", "login success response : " + JSONObject(response).getString("token"))
                         val token = JSONObject(response).getString("token").toString()
                         Token().setToken(this,token)
-                        finish()
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(intent)
                     } catch (e : Exception) {
                         Log.e("LOGIN RESPONSE SUCCES", e.toString())
                     }
