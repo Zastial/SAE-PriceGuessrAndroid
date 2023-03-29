@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import com.android.volley.NoConnectionError
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
@@ -29,12 +31,12 @@ class RegisterActivity : AppCompatActivity() {
             val formPassword = password.text.toString()
             val formConfirmPassword = confirmPassword.text.toString()
 
-            /* form input empty verification*/
+            /* form input empty verification */
             if (formLogin.isEmpty() || formPassword.isEmpty() || formConfirmPassword.isEmpty()) {
                 Toast.makeText(this, getString(R.string.toast_input_page_invalid), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            /* form input password and confirm password verification*/
+            /* form input password and confirm password verification */
             if (formPassword != formConfirmPassword) {
                 Toast.makeText(this, getString(R.string.toast_password_confirm_invalid), Toast.LENGTH_SHORT).show()
             }
@@ -44,28 +46,32 @@ class RegisterActivity : AppCompatActivity() {
                 Method.POST,
                 Constants.API_BASE_URl + Constants.API_USER_POST_REGISTER,
                 {response ->
-
-                    Log.e("REGISTER", "register success response : " + response)
                     Toast.makeText(this, getString(R.string.toast_register_sucess), Toast.LENGTH_SHORT).show()
+                    /* redirect to login */
                     finish()
-
                 },
                 {error ->
-                    try {
-
-                        /* decoder le message */
-                        val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
-                        Log.e("REGISTER", responseMessage)
-                        val code = error.networkResponse.statusCode
-                        when(code) {
-                            400 -> Toast.makeText(this, responseMessage , Toast.LENGTH_SHORT).show()
-                            409 ->  Toast.makeText(this, responseMessage , Toast.LENGTH_SHORT).show()
-                            else -> Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
-
+                    if (error is NoConnectionError ||  error == null || error.networkResponse == null) {
+                        Toast.makeText(this, getString(R.string.api_connection_error), Toast.LENGTH_SHORT).show()
+                    } else {
+                        /* decode networkResponse
+                        * show user already exists if code is 409, else try to get message from API response */
+                        when (error.networkResponse.statusCode) {
+                            409 -> Toast.makeText(this, getString(R.string.toast_user_already_exists), Toast.LENGTH_SHORT).show()
+                            else -> {
+                                try {
+                                    val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
+                                    Toast.makeText(this, responseMessage, Toast.LENGTH_SHORT).show()
+                                } catch (e : Exception) {
+                                    Toast.makeText(this, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
+                                }
+                            }
                         }
-                    } catch (e : Exception) {
-                        Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+
                     }
+
+
+
                 }
             ) {
                 override fun getParams(): MutableMap<String, String>? {

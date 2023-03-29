@@ -30,7 +30,7 @@
     <string name="parameter_page_logout">Déconnecter</string>
 
 
-    <!-- Formular -->
+    <!-- Form -->
     <string name="form_label_login">Login</string>
     <string name="form_label_password">Mot de passe</string>
     <string name="form_register">S\'inscrire</string>
@@ -56,12 +56,13 @@
 
     <!-- Toast -->
     <string name="toast_input_page_invalid">Veuillez renseigner un login et mot de passe</string>
-    <string name="toast_error_inconnue">Erreur inconnue</string>
-    <string name="toast_invalid_credentials">Login ou mot de passe invalide</string>
+    <string name="toast_unknown_error">Erreur inconnue</string>
+    <string name="toast_invalid_credentials">Identifiants invalide</string>
     <string name="toast_password_confirm_invalid">"Les mots de passe ne sont pas les mêmes"</string>
-    <string name="toast_register_sucess">Inscription réussie</string>
+    <string name="toast_register_sucess">Inscription réussie, veuillez vous connecter</string>
 
-    <string name="unknown_error">Erreur Inconnue</string>
+    <string name="api_connection_error">Un problème de connexion est survenu.</string>
+    <string name="toast_user_already_exists">Ce login est déjà pris.</string>
 
 
 </resources>

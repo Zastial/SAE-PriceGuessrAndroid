@@ -3,11 +3,8 @@ package fr.etudiant.priceguessr
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
+import com.android.volley.NoConnectionError
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -39,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
                 Constants.API_BASE_URl + Constants.API_USER_AUTH,
                 {response ->
                     try {
-                        Log.e("LOGIN", "login success response : " + JSONObject(response).getString("token"))
                         val token = JSONObject(response).getString("token").toString()
                         Token().setToken(this,token)
                         val intent = Intent(this, MainActivity::class.java)
@@ -48,31 +44,30 @@ class LoginActivity : AppCompatActivity() {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
                     } catch (e : Exception) {
-                        Log.e("LOGIN RESPONSE SUCCES", e.toString())
+                        Toast.makeText(this,getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
                     }
 
                 },
                 {error ->
-                    if (error is VolleyError ||  error == null || error.networkResponse != null) {
-                        Log.e("MAIN VOLLEy", "Volley perso error")
-
+                    /* handle connection error from API */
+                    if (error is NoConnectionError ||  error == null || error.networkResponse == null) {
+                        Toast.makeText(this, getString(R.string.api_connection_error), Toast.LENGTH_SHORT).show()
                     } else {
-                        try {
-                            val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
-                            val code = error.networkResponse.statusCode
-                            when(code) {
-                                400 -> Toast.makeText(this, responseMessage, Toast.LENGTH_SHORT).show()
-                                else -> Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+                            /* handle API response */
+                            when(error.networkResponse.statusCode) {
+                                400 -> {
+                                    try {
+                                        val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
+                                        Toast.makeText(this, responseMessage, Toast.LENGTH_SHORT).show()
+                                    } catch (e : Exception) {
+                                        Toast.makeText(this, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                                else -> Toast.makeText(this, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
                             }
-                        } catch (e : Exception) {
-                            Log.e("LOGIN ERROR CATCH",e.toString() )
-                            Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
-                        }
                     }
-
-
-                }
-                ) {
+                }) {
+                /* Put credential in request body */
                 override fun getParams(): MutableMap<String, String>? {
                     val params = hashMapOf<String, String>()
                     params["login"] = login

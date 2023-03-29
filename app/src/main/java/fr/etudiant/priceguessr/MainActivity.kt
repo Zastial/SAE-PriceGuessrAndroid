@@ -14,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.etudiant.priceguessr.fragments.GameFragment
 import fr.etudiant.priceguessr.fragments.HistoryFragment
 import fr.etudiant.priceguessr.fragments.ProfilFragment
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonPrimitive
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +41,8 @@ class MainActivity : AppCompatActivity() {
             {response ->
                 try {
                     /* récupération des données */
-                    Log.e("MAIN", "respone success game activity : " + response)
+                    Log.e("MAIN", "login succes, redirection to Game with resp : " + response)
+                    //var product = JSONObject(response).getString()
                     //var dailyProducts = Json.decodeFromString<MutableList<Product>>()
 
                     /* data successfully receive */
