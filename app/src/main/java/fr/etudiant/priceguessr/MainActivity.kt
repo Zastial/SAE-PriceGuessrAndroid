@@ -48,10 +48,12 @@ class MainActivity : AppCompatActivity() {
                     val bundle = Bundle()
                     bundle.putParcelableArray("products", productList.toTypedArray())
                     /* Load fragment with bundle */
+                    Log.e("MAIN", "bundle : " + bundle.toString())
                     loadFragment(GameFragment(), bundle)
 
                 } catch (e : Exception) {
-                    Toast.makeText(this, "Erreur lors de la récupération des données." , Toast.LENGTH_LONG).show()
+                    Log.e("MAIN", e.toString())
+                    Toast.makeText(this, getString(R.string.toast_decode_invalid) , Toast.LENGTH_LONG).show()
                 }
             },
             {error ->

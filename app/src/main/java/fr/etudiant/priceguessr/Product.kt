@@ -2,7 +2,9 @@ package fr.etudiant.priceguessr
 
 import android.os.Parcel
 import android.os.Parcelable
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Product(
     var id : String,
     var date : String,
