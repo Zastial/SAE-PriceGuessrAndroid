@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     val bundle = Bundle()
                     bundle.putParcelableArray("products", productList.toTypedArray())
                     /* Load fragment with bundle */
-                    Log.e("MAIN", "bundle : " + bundle.toString())
+                    Log.e("MAIN", "sending bundle : " + bundle.toString())
                     loadFragment(GameFragment(), bundle)
 
                 } catch (e : Exception) {
@@ -73,8 +73,7 @@ class MainActivity : AppCompatActivity() {
                         }
 
                     } catch (e : Exception) {
-
-                        Toast.makeText(this, "aaaaaaaa", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
                     }
                 }
 
