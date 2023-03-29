@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/game_page_imageView"
         android:layout_width="wrap_content"
         android:layout_height="350dp"
         android:src="@drawable/default_img"
@@ -17,37 +17,47 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/game_page_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/game_page_question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/game_page_imageView" />
+
+    <TextView
+        android:id="@+id/game_page_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_product_name"
+        android:layout_marginTop="@dimen/item_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/game_page_question" />
+
 
     <EditText
-        android:id="@+id/textView2"
+        android:id="@+id/game_page_product_price_input"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-
         android:text=""
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toEndOf="@+id/game_page_question"
+        app:layout_constraintStart_toStartOf="@+id/game_page_question"
+        app:layout_constraintTop_toBottomOf="@+id/game_page_question" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/game_page_product_currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/product_currency"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="@+id/game_page_product_price_input"
 
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintStart_toEndOf="@+id/game_page_product_price_input"
+        app:layout_constraintTop_toTopOf="@+id/game_page_product_price_input" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/game_page_btn_validate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
@@ -55,6 +65,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

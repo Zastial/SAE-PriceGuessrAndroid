@@ -1,5 +1,6 @@
 package fr.etudiant.priceguessr.gameLogic
 
+import androidx.lifecycle.ViewModel
 import fr.etudiant.priceguessr.Product
 
 
@@ -7,7 +8,7 @@ import fr.etudiant.priceguessr.Product
  * GameLogic implements the game logic
  * @param list is list of Product
  */
-class GameLogic(list: List<Product>) {
+class GameLogic(list: List<Product>){
 
     private var listProduct : MutableList<Pair<Product, Guess>>
     private var index : Int
