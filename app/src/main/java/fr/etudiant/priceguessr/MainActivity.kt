@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.etudiant.priceguessr.fragments.GameFragment
 import fr.etudiant.priceguessr.fragments.HistoryFragment
 import fr.etudiant.priceguessr.fragments.ProfilFragment
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
 import org.json.JSONObject
@@ -33,20 +34,21 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        /* request when starting the app */
+        /* Request when starting the app */
         val queue = Volley.newRequestQueue(this)
         val loadProductRequest = object : StringRequest(
             Request.Method.GET,
             Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY,
             {response ->
                 try {
-                    /* récupération des données */
+                    /* Get product from response */
                     Log.e("MAIN", "login succes, redirection to Game with resp : " + response)
-                    //var product = JSONObject(response).getString()
-                    //var dailyProducts = Json.decodeFromString<MutableList<Product>>()
-
-                    /* data successfully receive */
-                    loadFragment(GameFragment())
+                    val productList = Json.decodeFromString<List<Product>>(response)
+                    /* Give array of products to fragment */
+                    val bundle = Bundle()
+                    bundle.putParcelableArray("products", productList.toTypedArray())
+                    /* Load fragment with bundle */
+                    loadFragment(GameFragment(), bundle)
 
                 } catch (e : Exception) {
                     Toast.makeText(this, "Erreur lors de la récupération des données." , Toast.LENGTH_LONG).show()
@@ -116,11 +118,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
+
+    private fun loadFragment(fragment: Fragment, data : Bundle? = null) {
+        if (data != null) {
+            fragment.arguments = data
+        }
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)
         transaction.commit()
     }
+
 
     private fun startLoginActivity() {
         val intent = Intent(this, LoginActivity::class.java)

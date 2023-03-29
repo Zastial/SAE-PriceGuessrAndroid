@@ -19,14 +19,18 @@ import kotlinx.serialization.json.Json
 class GameFragment : Fragment() {
 
 
-    private var fetched = false
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
 
+        val data = arguments?.get("products")
+
+
+
         /* if data not fetched -> don't load fragment */
-        val view = if (fetched) inflater.inflate(R.layout.fragment_game, container, false) else null
+        val view = inflater.inflate(R.layout.fragment_game, container, false)
         /* request to load product of the day */
         return view
     }
