@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
@@ -51,17 +52,24 @@ class LoginActivity : AppCompatActivity() {
 
                 },
                 {error ->
-                    try {
-                        val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
-                        val code = error.networkResponse.statusCode
-                        when(code) {
-                            400 -> Toast.makeText(this, responseMessage, Toast.LENGTH_SHORT).show()
-                            else -> Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+                    if (error is VolleyError ||  error == null || error.networkResponse != null) {
+                        Log.e("MAIN VOLLEy", "Volley perso error")
+
+                    } else {
+                        try {
+                            val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
+                            val code = error.networkResponse.statusCode
+                            when(code) {
+                                400 -> Toast.makeText(this, responseMessage, Toast.LENGTH_SHORT).show()
+                                else -> Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
+                            }
+                        } catch (e : Exception) {
+                            Log.e("LOGIN ERROR CATCH",e.toString() )
+                            Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                         }
-                    } catch (e : Exception) {
-                        Log.e("LOGIN ERROR CATCH",e.toString() )
-                        Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                     }
+
+
                 }
                 ) {
                 override fun getParams(): MutableMap<String, String>? {

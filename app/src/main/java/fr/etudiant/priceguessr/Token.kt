@@ -33,5 +33,11 @@ class Token() : ViewModel() {
         }
     }
 
-
+    fun deleteToken(context: Context) {
+        jwt = ""
+        val sharedPref = context.getSharedPreferences("token", Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            remove("token")
+        }
+    }
 }

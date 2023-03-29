@@ -13,7 +13,7 @@ import com.android.volley.toolbox.Volley
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.etudiant.priceguessr.fragments.GameFragment
 import fr.etudiant.priceguessr.fragments.HistoryFragment
-import fr.etudiant.priceguessr.fragments.ProfileFragment
+import fr.etudiant.priceguessr.fragments.ProfilFragment
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                         val errorCode = error.networkResponse.statusCode
                         val errorBody = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
                         when (errorCode) {
-                            401 ->  {startLoginActivity() ; Log.e("MAIN", "Starting Login activity ... ")}
+                            401 ->  {startLoginActivity() }
                             else -> Toast.makeText(this, errorBody, Toast.LENGTH_SHORT).show()
                         }
 
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile-> {
-                    loadFragment(ProfileFragment())
+                    loadFragment(ProfilFragment())
                     true
                 }
                 else -> {

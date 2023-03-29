@@ -27,6 +27,7 @@
 
     <string name="parameter_page_login">Login</string>
     <string name="parameter_page_name">Name</string>
+    <string name="parameter_page_logout">Déconnecter</string>
 
 
     <!-- Formular -->
