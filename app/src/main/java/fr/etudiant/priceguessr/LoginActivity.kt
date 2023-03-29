@@ -18,11 +18,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
 
-        var loginInput = findViewById<EditText>(R.id.login_page_input)
-        var passwordInput = findViewById<EditText>(R.id.login_page_input_password)
+        val loginInput = findViewById<EditText>(R.id.login_page_input)
+        val passwordInput = findViewById<EditText>(R.id.login_page_input_password)
         var btnPasswordVisibility = findViewById<ImageButton>(R.id.login_page_btn_password_visibility)
-        var btnConnexion = findViewById<Button>(R.id.login_page_btn_login)
-        var btnRedirectRegister = findViewById<Button>(R.id.login_page_btn_register)
+        val btnConnexion = findViewById<Button>(R.id.login_page_btn_login)
+        val btnRedirectRegister = findViewById<Button>(R.id.login_page_btn_register)
 
 
 
@@ -36,14 +36,19 @@ class LoginActivity : AppCompatActivity() {
             }
 
             val queue = Volley.newRequestQueue(this)
-            var loginRequest = object : StringRequest(
+            val loginRequest = object : StringRequest(
                 Method.POST,
                 Constants.API_BASE_URl + Constants.API_USER_AUTH,
                 {response ->
-                    Log.e("TAG", "login success response : " + JSONObject(response).getString("token"))
-                    val token = JSONObject(response).getString("token")
-                    Token().setToken(this,token)
-                    finish()
+                    try {
+                        Log.e("LOGIN", "login success response : " + JSONObject(response).getString("token"))
+                        val token = JSONObject(response).getString("token").toString()
+                        Token().setToken(this,token)
+                        finish()
+                    } catch (e : Exception) {
+                        Log.e("LOGIN RESPONSE SUCCES", e.toString())
+                    }
+
                 },
                 {error ->
                     try {
@@ -53,7 +58,8 @@ class LoginActivity : AppCompatActivity() {
                             400 -> Toast.makeText(this, responseMessage, Toast.LENGTH_SHORT).show()
                             else -> Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                         }
-                    } catch (e : Error) {
+                    } catch (e : Exception) {
+                        Log.e("LOGIN ERROR CATCH",e.toString() )
                         Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                     }
                 }

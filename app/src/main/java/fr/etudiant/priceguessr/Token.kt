@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import android.util.Log
 import androidx.lifecycle.ViewModel
 
 class Token() : ViewModel() {
@@ -16,7 +17,8 @@ class Token() : ViewModel() {
 
     fun getToken(activity : Activity) : String {
         if (jwt.isEmpty()) {
-            val token = activity.getSharedPreferences("token", Context.MODE_PRIVATE)
+            val token = activity.getSharedPreferences("tokenPreference", Context.MODE_PRIVATE)
+                .getString("token", "")
             jwt = token.toString()
         }
         return jwt
@@ -24,14 +26,12 @@ class Token() : ViewModel() {
 
     fun setToken(activity: Activity, newToken : String) {
         jwt = newToken
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = activity?.getSharedPreferences("tokenPreference", Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putString("token", jwt)
             apply()
         }
     }
 
-    fun deleteToken() {
-        jwt = ""
-    }
+
 }

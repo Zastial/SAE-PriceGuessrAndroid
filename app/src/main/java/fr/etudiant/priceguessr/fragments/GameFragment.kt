@@ -18,46 +18,16 @@ import kotlinx.serialization.json.Json
 
 class GameFragment : Fragment() {
 
+
+    private var fetched = false
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view = inflater.inflate(R.layout.fragment_game, container, false)
 
-
+        /* if data not fetched -> don't load fragment */
+        val view = if (fetched) inflater.inflate(R.layout.fragment_game, container, false) else null
         /* request to load product of the day */
-        val queue = Volley.newRequestQueue(context)
-        val loadProductRequest = object : StringRequest(
-            Request.Method.GET,
-            Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY,
-            {response ->
-
-                try {
-                    /* récupération des données */
-                    Log.e("TAG", "respone success game activity" + response.toString())
-                    //var dailyProducts = Json.decodeFromString<MutableList<Product>>(response)
-                } catch (e : Exception) {
-                    Toast.makeText(activity, "Erreur lors de la récupération des données." , Toast.LENGTH_LONG).show()
-                }
-            },
-            {error ->
-                /* if error == 401 (!authorization) start login activity */
-                Log.e("TAG", "error "+ error)
-                Log.e("TAG", "Starting Login activity ... ")
-
-                val intent = Intent(context, LoginActivity::class.java)
-                startActivity(intent)
-
-            }) {
-            /* set token into header of request */
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = mutableMapOf<String, String>()
-                Log.e("TOKEN", Token().getToken(activity as Activity))
-                headers["Authorization"] = Token().getToken(activity as Activity)
-                return headers
-            }
-        }
-
-        queue.add(loadProductRequest)
-
         return view
     }
 }

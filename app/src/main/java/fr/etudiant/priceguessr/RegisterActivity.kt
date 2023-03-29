@@ -39,12 +39,13 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.toast_password_confirm_invalid), Toast.LENGTH_SHORT).show()
             }
 
-            var queue = Volley.newRequestQueue(this)
-            var registerRequest = object : StringRequest(
+            val queue = Volley.newRequestQueue(this)
+            val registerRequest = object : StringRequest(
                 Method.POST,
                 Constants.API_BASE_URl + Constants.API_USER_POST_REGISTER,
                 {response ->
-                    Log.e("TAG", "register success response : " + response)
+
+                    Log.e("REGISTER", "register success response : " + response)
                     Toast.makeText(this, getString(R.string.toast_register_sucess), Toast.LENGTH_SHORT).show()
                     finish()
 
@@ -54,7 +55,7 @@ class RegisterActivity : AppCompatActivity() {
 
                         /* decoder le message */
                         val responseMessage = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
-                        Log.e("TAG", responseMessage)
+                        Log.e("REGISTER", responseMessage)
                         val code = error.networkResponse.statusCode
                         when(code) {
                             400 -> Toast.makeText(this, responseMessage , Toast.LENGTH_SHORT).show()
@@ -62,7 +63,7 @@ class RegisterActivity : AppCompatActivity() {
                             else -> Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
 
                         }
-                    } catch (e : Error) {
+                    } catch (e : Exception) {
                         Toast.makeText(this, getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                     }
                 }
