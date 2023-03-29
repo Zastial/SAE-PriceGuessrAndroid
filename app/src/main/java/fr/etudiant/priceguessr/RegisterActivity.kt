@@ -2,13 +2,11 @@ package fr.etudiant.priceguessr
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import com.android.volley.NoConnectionError
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
@@ -23,7 +21,8 @@ class RegisterActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.register_page_input_password)
         val confirmPassword = findViewById<EditText>(R.id.register_page_input_confirm_password)
         val btnVisibilityPassword  = findViewById<ImageButton>(R.id.register_page_btn_password_visibility)
-        val btnRegister = findViewById<Button>(R.id.register_page_btn_login)
+        val btnRegister = findViewById<Button>(R.id.register_page_btn_register)
+        val btnLogin = findViewById<Button>(R.id.register_page_btn_login)
 
 
         btnRegister.setOnClickListener {
@@ -83,6 +82,10 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             queue.add(registerRequest)
+        }
+
+        btnLogin.setOnClickListener {
+            finish()
         }
     }
 }
