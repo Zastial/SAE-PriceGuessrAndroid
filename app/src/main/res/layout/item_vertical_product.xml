@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/image_item"
+            android:id="@+id/item_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name_item"
+        android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/default_product_name"
@@ -42,13 +42,13 @@
         android:layout_marginStart="@dimen/item_margin"/>
 
     <TextView
-        android:id="@+id/description_item"
+        android:id="@+id/item_description"
         android:layout_width="@dimen/item_length_description"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/default_product_description"
-        app:layout_constraintStart_toStartOf="@+id/name_item"
+        app:layout_constraintStart_toStartOf="@+id/item_name"
         app:layout_constraintTop_toBottomOf="@+id/view_separation" />
 
     <ImageButton
