@@ -49,5 +49,7 @@ data class Product(
         override fun newArray(size: Int): Array<Product?> {
             return arrayOfNulls(size)
         }
+
+
     }
 }

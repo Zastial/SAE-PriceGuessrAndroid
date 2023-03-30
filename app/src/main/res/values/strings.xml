@@ -65,6 +65,16 @@
     <string name="api_connection_error">Un problème de connexion est survenu.</string>
     <string name="toast_user_already_exists">Ce login est déjà pris.</string>
     <string name="toast_decode_invalid">Erreur lors de la récupération des données</string>
+    <string name="game_page_btn_previous"><![CDATA[<]]></string>
+    <string name="game_page_btn_next"><![CDATA[>]]></string>
+    <string name="toast_game_page_empty_price">Veuillez renseigner le prix du produit</string>
+    <string name="game_page_dialog_btn_close">Suivant</string>
+    <string name="game_page_dialog_title_wrong_answer">Presque !</string>
+    <string name="game_page_dialog_title_good_answer">Bravo !</string>
+    <string name="game_page_dialog_desc_good_price_answer">Tu as trouvé le bon prix</string>
+    <string name="game_page_dialog_desc_price_is_higher">Le prix est plus haut</string>
+    <string name="game_page_dialog_desc_price_is_lower">Le prix est plus bas</string>
+    <string name="game_page_dialog_desc_guess_remaining">Il te reste </string>
 
 
 </resources>

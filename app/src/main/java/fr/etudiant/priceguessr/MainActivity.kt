@@ -42,24 +42,22 @@ class MainActivity : AppCompatActivity() {
             {response ->
                 try {
                     /* Get product from response */
-                    Log.e("MAIN", "login succes, redirection to Game with resp : " + response)
                     val productList = Json.decodeFromString<List<Product>>(response)
-                    /* Give array of products to fragment */
+
+                    /* Give array of products to fragment with bundle*/
                     val bundle = Bundle()
                     bundle.putParcelableArray("products", productList.toTypedArray())
+
                     /* Load fragment with bundle */
-                    Log.e("MAIN", "sending bundle : " + bundle.toString())
                     loadFragment(GameFragment(), bundle)
 
                 } catch (e : Exception) {
-                    Log.e("MAIN", e.toString())
                     Toast.makeText(this, getString(R.string.toast_decode_invalid) , Toast.LENGTH_LONG).show()
                 }
             },
             {error ->
                 /* Prevent if API is not running  */
                 if (error is VolleyError ||  error == null || error.networkResponse != null) {
-                    Log.e("MAIN VOLLEy", "Volley perso error")
                     startLoginActivity()
                     finish()
 
@@ -76,9 +74,6 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
                     }
                 }
-
-
-
             }) {
             /* set token into header of request */
             override fun getHeaders(): MutableMap<String, String> {
@@ -112,7 +107,6 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 else -> {
-                    Log.e("TAG", "false")
                     false
                 }
             }
