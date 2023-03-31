@@ -75,6 +75,7 @@
     <string name="game_page_dialog_desc_price_is_higher">Le prix est plus haut</string>
     <string name="game_page_dialog_desc_price_is_lower">Le prix est plus bas</string>
     <string name="game_page_dialog_desc_guess_remaining">Il te reste </string>
+    <string name="btn_retour">Retour</string>
 
 
 </resources>
