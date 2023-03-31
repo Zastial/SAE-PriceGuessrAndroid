@@ -27,8 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         val navigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
-        /*  if token is empty we don't need to call API*/
-        Log.e("EMPTY TOK", Token().getToken(this@MainActivity))
+        /*  if token is empty we don't need to call API */
         if (Token().getToken(this@MainActivity).isEmpty()) {
             startLoginActivity()
             finish()
@@ -60,7 +59,6 @@ class MainActivity : AppCompatActivity() {
                 if (error is VolleyError ||  error == null || error.networkResponse != null) {
                     startLoginActivity()
                     finish()
-
                 } else {
                     try {
                         val errorCode = error.networkResponse.statusCode

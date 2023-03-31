@@ -1,15 +1,19 @@
 package fr.etudiant.priceguessr.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
+import fr.etudiant.priceguessr.Constants
 import fr.etudiant.priceguessr.Product
+import fr.etudiant.priceguessr.ProductDetailsActivity
 import fr.etudiant.priceguessr.R
 
-class ProductAdapter(val listProduct : List<Product>) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(var listProduct : List<Product>) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val productImage = view.findViewById<ImageView>(R.id.item_image)
@@ -26,12 +30,25 @@ class ProductAdapter(val listProduct : List<Product>) : RecyclerView.Adapter<Pro
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.productName.text = listProduct[position].title
-         //holder.productImage
-        holder.productDesc.text = listProduct[position].desc
+        val product = listProduct[position]
+        holder.productName.text = product.title
+        Picasso.get().load(product.imgSrc).into(holder.productImage)
+        holder.productDesc.text = product.desc
+
+        holder.itemView.setOnClickListener {
+            val detailIntent = Intent(holder.itemView.context, ProductDetailsActivity::class.java)
+            detailIntent.putExtra("product", product)
+            holder.itemView.context.startActivity(detailIntent)
+        }
     }
 
     override fun getItemCount(): Int {
         return listProduct.size
+    }
+
+
+    fun setData(listProduct: List<Product>) {
+        this.listProduct = listProduct
+        notifyDataSetChanged()
     }
 }

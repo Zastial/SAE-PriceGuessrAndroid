@@ -2,6 +2,7 @@ package fr.etudiant.priceguessr.fragments
 
 import android.app.Dialog
 import android.content.Context
+import android.media.MediaRouter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
@@ -18,6 +20,7 @@ import fr.etudiant.priceguessr.Product
 import fr.etudiant.priceguessr.R
 import fr.etudiant.priceguessr.Token
 import fr.etudiant.priceguessr.gameLogic.GameLogic
+import org.json.JSONObject
 
 
 class GameFragment : Fragment() {
@@ -95,7 +98,6 @@ class GameFragment : Fragment() {
                     Log.e("PROD", response)
                     /* update guess of profuct */
 
-
                     val dialog = Dialog(requireContext())
                     dialog.setContentView(R.layout.layout_dialog_custom)
 
@@ -105,9 +107,24 @@ class GameFragment : Fragment() {
                     }
                     dialog.show()
                 },
-                {error ->
-                    // TODO ?
-                    Toast.makeText(context, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
+                { error ->
+                    /* Prevent if API is not running  */
+                    if (error is VolleyError || error == null || error.networkResponse != null) {
+                        Toast.makeText(context,getString(R.string.toast_unknown_error),Toast.LENGTH_SHORT).show()
+                    } else {
+                        try {
+                            val errorCode = error.networkResponse.statusCode
+                            val errorBody =
+                                JSONObject(error.networkResponse.data.decodeToString()).getString("message")
+                            when (errorCode) {
+                                401 -> {Toast.makeText(context, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()}
+                                else -> Toast.makeText(context, errorBody, Toast.LENGTH_SHORT).show()
+                            }
+
+                        } catch (e: Exception) {
+                            Toast.makeText(context,getString(R.string.toast_unknown_error),Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }) {
                 override fun getHeaders(): MutableMap<String, String> {
                     val header = mutableMapOf<String, String>()
@@ -126,6 +143,7 @@ class GameFragment : Fragment() {
     private fun showProduct(currentProduct : Product?) {
         if (currentProduct != null) {
             //TODO check the "guess" of product to see if there is any attempt left or, if the correct price is already guessed
+            // in order to load the correct Dialog content
 
             Picasso.get().load(currentProduct.imgSrc).into(productImage)
             productName.setText(currentProduct.title)

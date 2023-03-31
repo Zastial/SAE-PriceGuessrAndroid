@@ -11,7 +11,7 @@ class ProductDecoration : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
 
         // get rectangle of the item and add spacing
-        outRect.bottom = 20
+        outRect.bottom = 40
 
     }
 

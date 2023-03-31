@@ -1,5 +1,6 @@
 package fr.etudiant.priceguessr.gameLogic
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import fr.etudiant.priceguessr.Product
 
@@ -23,7 +24,7 @@ class GameLogic(list: List<Product>){
     }
 
 
-    fun getProduct() : Product?{
+    fun getProduct() : Product? {
         return if (listProduct.isEmpty()) null else listProduct[index].first
     }
 
@@ -36,7 +37,11 @@ class GameLogic(list: List<Product>){
 
     fun previousProduct() {
         if (listProduct.isNotEmpty()) {
-            index = (index - 1) % listProduct.size
+            // modulo doesn't work well with negative numbers in Kotlin
+            index--
+            if (index < 0) {
+                index = listProduct.lastIndex
+            }
         }
     }
 
