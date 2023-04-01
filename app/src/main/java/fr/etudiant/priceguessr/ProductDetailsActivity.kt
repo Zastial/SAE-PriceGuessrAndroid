@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.net.toUri
+import com.squareup.picasso.Picasso
 
 class ProductDetailsActivity : AppCompatActivity() {
 
@@ -31,7 +32,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             /* get product from the history page (from product adapter) */
             val data = intent.extras?.getParcelable<Product>("product")
             if (data != null) {
-                image.setImageURI(data.imgSrc.toUri())
+                Picasso.get().load(data.imgSrc).into(image)
                 title.text = data.title
                 description.text = data.desc
                 price.text = data.price.toString()

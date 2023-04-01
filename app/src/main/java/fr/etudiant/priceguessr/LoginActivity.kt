@@ -1,5 +1,6 @@
 package fr.etudiant.priceguessr
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -35,9 +36,16 @@ class LoginActivity : AppCompatActivity() {
                 Constants.API_BASE_URl + Constants.API_USER_AUTH,
                 {response ->
                     try {
+                        /* save login */
+                        val sharedPref = this.getSharedPreferences("tokenPreference", Context.MODE_PRIVATE)
+                        with (sharedPref.edit()) {
+                            putString("userName", loginInput.text.toString())
+                            apply()
+                        }
                         val token = JSONObject(response).getString("token").toString()
                         Token().setToken(this,token)
                         val intent = Intent(this, MainActivity::class.java)
+                        /* kill previous activities and only start MainActivity */
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

@@ -63,7 +63,7 @@
         android:id="@+id/detail_product_page_product_currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/product_currency"
+        android:text="@string/default_product_currency"
         app:layout_constraintStart_toEndOf="@+id/detail_product_page_product_price"
         app:layout_constraintTop_toTopOf="@+id/detail_product_page_product_price" />
 

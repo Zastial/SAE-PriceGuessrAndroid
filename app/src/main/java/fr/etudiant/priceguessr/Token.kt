@@ -26,7 +26,7 @@ class Token() : ViewModel() {
 
     fun setToken(activity: Activity, newToken : String) {
         jwt = newToken
-        val sharedPref = activity?.getSharedPreferences("tokenPreference", Context.MODE_PRIVATE) ?: return
+        val sharedPref = activity.getSharedPreferences("tokenPreference", Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putString("token", jwt)
             apply()

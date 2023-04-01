@@ -1,8 +1,6 @@
 package fr.etudiant.priceguessr.fragments
 
 import android.app.Dialog
-import android.content.Context
-import android.media.MediaRouter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -96,12 +94,20 @@ class GameFragment : Fragment() {
                 Constants.API_BASE_URl + Constants.API_PRODUCT_GET_ONE + product!!.id + "/" + priceOfUser,
                 {response ->
                     Log.e("PROD", response)
-                    /* update guess of profuct */
+                    // TODO update guess of profuct
+
 
                     val dialog = Dialog(requireContext())
-                    dialog.setContentView(R.layout.layout_dialog_custom)
+                    dialog.setContentView(R.layout.layout_dialog_custom_game_results)
 
-                    // if button is clicked, close the custom dialog
+
+                    //TODO traitement du code
+
+
+
+
+
+
                     dialog.findViewById<Button>(R.id.game_page_dialog_btn_ok).setOnClickListener {
                         dialog.dismiss()
                     }

@@ -51,7 +51,7 @@
         android:id="@+id/game_page_product_currency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/product_currency"
+        android:text="@string/default_product_currency"
         app:layout_constraintBottom_toBottomOf="@+id/game_page_product_price_input"
         app:layout_constraintStart_toEndOf="@+id/game_page_product_price_input"
         app:layout_constraintTop_toTopOf="@+id/game_page_product_price_input" />
