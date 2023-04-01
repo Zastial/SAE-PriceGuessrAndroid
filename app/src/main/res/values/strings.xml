@@ -77,9 +77,8 @@
     <string name="toast_user_already_exists">Ce login est déjà pris.</string>
     <string name="toast_decode_invalid">Erreur lors de la récupération des données</string>
     <string name="toast_enter_password">Veuillez entrer votre mot passe</string>
-    
     <string name="api_connection_error">Un problème de connexion est survenu.</string>
-    
+
     
     <!-- Dialog -->
     <string name="game_page_dialog_btn_next">Suivant</string>

@@ -15,10 +15,7 @@ import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import fr.etudiant.priceguessr.Constants
-import fr.etudiant.priceguessr.LoginActivity
-import fr.etudiant.priceguessr.R
-import fr.etudiant.priceguessr.Token
+import fr.etudiant.priceguessr.*
 import org.json.JSONObject
 
 class ProfilFragment() : Fragment() {
@@ -34,44 +31,48 @@ class ProfilFragment() : Fragment() {
         loginText = view.findViewById(R.id.profil_page_section_personnal_info_user_login)
         btnModifyPassword = view.findViewById(R.id.profil_page_btn_modify_password)
         btnLogout = view.findViewById(R.id.profil_page_btn_logout)
+        btnDeleteAccount = view.findViewById(R.id.profil_page_btn_delete_account)
 
         val userName = requireActivity().getSharedPreferences("tokenPreference", Context.MODE_PRIVATE)
             .getString("userName", "")
 
         loginText.text = userName
-
+        val queue = Volley.newRequestQueue(context)
 
         btnModifyPassword.setOnClickListener {
             /* open custom dialog to modify password */
-            val dialog = Dialog(requireContext())
-            dialog.setContentView(R.layout.layout_dialog_custom_modify_password)
-            val dialogInputPwd = dialog.findViewById<EditText>(R.id.profil_page_dialog_modify_password_input)
-            val dialogBtnValidate = dialog.findViewById<Button>(R.id.profil_page_dialog_modify_password_btn_ok)
-            val dialogBtnClose = dialog.findViewById<ImageButton>(R.id.profil_page_dialog_modify_password_btn_close)
+            val dialogPwd = Dialog(requireContext())
+            dialogPwd.setContentView(R.layout.layout_dialog_custom_modify_password)
+            val dialogInputPwd = dialogPwd.findViewById<EditText>(R.id.profil_page_dialog_modify_password_input)
+            val dialogBtnValidate = dialogPwd.findViewById<Button>(R.id.profil_page_dialog_modify_password_btn_ok)
+            val dialogBtnClose = dialogPwd.findViewById<ImageButton>(R.id.profil_page_dialog_modify_password_btn_close)
 
-            dialogBtnClose.setOnClickListener {
-                dialog.dismiss()
-            }
 
+
+            /* modify password validation */
             dialogBtnValidate.setOnClickListener {
-                if (dialogInputPwd.text.isEmpty()) {
+                val password = dialogInputPwd.text.toString()
+                if (password.isEmpty()) {
                     Toast.makeText(requireContext(), getString(R.string.toast_enter_password), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                val queue = Volley.newRequestQueue(context)
+
                 val passwordRequest = object : StringRequest(
                     Request.Method.PUT,
                     Constants.API_BASE_URl + Constants.API_USER,
                     {response ->
-                        Log.e("RESP", response.toString())
                         try {
-
+                            //TODO handle request ?
+                            val body = JSONObject(response)
+                            val newToken = body.get("jwt")
+                            Token().setToken(requireActivity(), newToken.toString())
+                            dialogPwd.dismiss()
+                            startLoginActivity()
                         } catch (e: Exception) {
-
+                            Toast.makeText(context, getString(R.string.api_connection_error), Toast.LENGTH_SHORT).show()
                         }
                     },
                     {error ->
-                        Log.e("ERR", error.networkResponse.allHeaders.toString())
                         if (error is VolleyError || error == null || error.networkResponse != null) {
                             Toast.makeText(context,getString(R.string.toast_unknown_error),Toast.LENGTH_SHORT).show()
                         } else {
@@ -79,8 +80,6 @@ class ProfilFragment() : Fragment() {
                                 val errorCode = error.networkResponse.statusCode
                                 val errorBody =
                                     JSONObject(error.networkResponse.data.decodeToString()).getString("message")
-
-                                Log.e("ERR", error.toString())
                                 when (errorCode) {
                                     400 -> {Toast.makeText(context, errorBody, Toast.LENGTH_SHORT).show()}
                                     401 -> {Toast.makeText(context, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()}
@@ -96,50 +95,114 @@ class ProfilFragment() : Fragment() {
                 ) {
                     override fun getHeaders(): MutableMap<String, String> {
                         val header = mutableMapOf<String,String>()
-                        header["Authorization"] = Token().getToken(requireActivity())
+                        header[Constants.HEADER_TOKEN_AUTHORIZATION] = Token().getToken(requireActivity())
                         return header
+                    }
+
+                    override fun getParams(): MutableMap<String, String> {
+                        val params = mutableMapOf<String, String>()
+                        params["password"] = password
+                        return params
                     }
                 }
                 queue.add(passwordRequest)
             }
-            dialog.show()
+
+            dialogBtnClose.setOnClickListener {
+                dialogPwd.dismiss()
+            }
+
+            dialogPwd.show()
         }
-
-
 
 
         btnLogout.setOnClickListener {
             Token().deleteToken(requireActivity())
-            val intent = Intent(requireActivity(), LoginActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-
+            startLoginActivity()
         }
 
 
         btnDeleteAccount.setOnClickListener {
-            val dialog = Dialog(requireContext())
-            dialog.setContentView(R.layout.layout_dialog_custom_delete_account)
-            val btnValid = dialog.findViewById<Button>(R.id.profil_page_dialog_delete_account_btn_validate)
-            val btnCancel = dialog.findViewById<Button>(R.id.profil_page_dialog_delete_account_btn_cancel)
+            val dialogAccount = Dialog(requireContext())
+            dialogAccount.setContentView(R.layout.layout_dialog_custom_delete_account)
+            val btnValid = dialogAccount.findViewById<Button>(R.id.profil_page_dialog_delete_account_btn_validate)
+            val btnCancel = dialogAccount.findViewById<Button>(R.id.profil_page_dialog_delete_account_btn_cancel)
 
+            /* request to delete account */
             btnValid.setOnClickListener {
 
+                val deleteAccoutRequest = object : StringRequest(
+                    Request.Method.DELETE,
+                Constants.API_BASE_URl + Constants.API_USER,
+                    {response ->
+                        //TODO handle response ?
+                        //val body = JSONObject(response)
+                        Token().deleteToken(requireActivity())
+                        dialogAccount.dismiss()
+                        startLoginActivity()
+                    },
+                    {error ->
+                        if (error is VolleyError || error == null || error.networkResponse != null) {
+                            Toast.makeText(context,getString(R.string.toast_unknown_error),Toast.LENGTH_SHORT).show()
+                        } else {
+                            try {
+                                val errorCode = error.networkResponse.statusCode
+                                val errorBody =
+                                    JSONObject(error.networkResponse.data.decodeToString()).getString(
+                                        "message"
+                                    )
+                                when (errorCode) {
+                                    400 -> {
+                                        Toast.makeText(context, errorBody, Toast.LENGTH_SHORT)
+                                            .show()
+                                    }
+                                    401 -> {
+                                        Toast.makeText(
+                                            context,
+                                            getString(R.string.toast_unknown_error),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    else -> Toast.makeText(context, errorBody, Toast.LENGTH_SHORT)
+                                        .show()
+                                }
 
+                            } catch (e: Exception) {
+                                Toast.makeText(
+                                    context,
+                                    getString(R.string.toast_unknown_error),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }) {
+                    override fun getHeaders(): MutableMap<String, String> {
+                        val header = mutableMapOf<String, String>()
+                        header[Constants.HEADER_TOKEN_AUTHORIZATION] = Token().getToken(requireActivity())
+                        return header
+                    }
+                }
+                queue.add(deleteAccoutRequest)
             }
-
-
             btnCancel.setOnClickListener {
-                dialog.dismiss()
+                dialogAccount.dismiss()
             }
-
-            dialog.show()
+            dialogAccount.show()
         }
 
 
         return view
     }
 
+    /**
+     * startLoginActivity
+     * kill all previous activity
+     */
+    private fun startLoginActivity() {
+        val intent = Intent(requireActivity(), LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+    }
 }

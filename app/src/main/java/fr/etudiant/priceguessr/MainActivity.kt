@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = mutableMapOf<String, String>()
                 val token = Token().getToken(this@MainActivity)
-                headers["Authorization"] = token
+                headers[Constants.HEADER_TOKEN_AUTHORIZATION] = token
                 return headers
             }
         }

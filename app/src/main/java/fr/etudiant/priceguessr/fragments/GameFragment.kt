@@ -134,7 +134,7 @@ class GameFragment : Fragment() {
                 }) {
                 override fun getHeaders(): MutableMap<String, String> {
                     val header = mutableMapOf<String, String>()
-                    header["Authorization"] = Token().getToken(requireActivity())
+                    header[Constants.HEADER_TOKEN_AUTHORIZATION] = Token().getToken(requireActivity())
                     return header
                 }
             }

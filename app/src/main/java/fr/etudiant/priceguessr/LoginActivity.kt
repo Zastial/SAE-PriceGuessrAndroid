@@ -93,10 +93,4 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
-
-    override fun onBackPressed() {
-        //can not return to the previous task
-        moveTaskToBack(false)
-    }
-
 }

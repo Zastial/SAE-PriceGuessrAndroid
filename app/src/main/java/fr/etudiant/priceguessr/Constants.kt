@@ -8,6 +8,8 @@ class Constants {
     companion object {
         val API_BASE_URl = "http://10.0.2.2:3000"
 
+        val HEADER_TOKEN_AUTHORIZATION = "Authorization"
+
         //product
         val API_PRODUCT_GET_ALL = "/product"
         val API_PRODUCT_GET_ONE = "/product/" //need params
