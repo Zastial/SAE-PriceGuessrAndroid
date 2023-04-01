@@ -34,6 +34,7 @@
     <string name="profil_page_login">Login</string>
     <string name="profil_page_name">Name</string>
     <string name="profil_page_logout">Déconnecter</string>
+    <string name="profil_page_dialog_question_delete_account">Êtes vous sûr de supprimer votre compte, cette action ne sera pas réversible</string>
 
 
     <!-- Form -->
@@ -56,10 +57,12 @@
     <string name="btn_login">Se connecter</string>
     <string name="btn_register">S\'inscrire</string>
     <string name="btn_valider">Valider</string>
+    <string name="btn_annuler">Annuler</string>
     <string name="btn_suivant">Suivant</string>
     <string name="btn_modify_info">Modifier mes informations</string>
     <string name="btn_modify_password">Modifier mon mot de passe</string>
     <string name="btn_retour">Retour</string>
+    <string name="btn_delete_account">Supprimer mon compte</string>
 
 
 
@@ -79,13 +82,14 @@
     
     
     <!-- Dialog -->
-    <string name="game_page_dialog_btn_close">Suivant</string>
+    <string name="game_page_dialog_btn_next">Suivant</string>
     <string name="game_page_dialog_title_wrong_answer">Presque !</string>
     <string name="game_page_dialog_title_good_answer">Bravo !</string>
     <string name="game_page_dialog_desc_good_price_answer">Tu as trouvé le bon prix</string>
     <string name="game_page_dialog_desc_price_is_higher">Le prix est plus haut</string>
     <string name="game_page_dialog_desc_price_is_lower">Le prix est plus bas</string>
     <string name="game_page_dialog_desc_guess_remaining">Il te reste </string>
+
     
     
 

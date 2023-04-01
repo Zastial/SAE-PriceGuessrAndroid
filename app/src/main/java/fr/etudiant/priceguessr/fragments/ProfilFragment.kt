@@ -8,11 +8,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DefaultItemAnimator
+import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -25,9 +24,9 @@ import org.json.JSONObject
 class ProfilFragment() : Fragment() {
 
     private lateinit var loginText: TextView
-    private lateinit var passwordText: TextView
     private lateinit var btnModifyPassword: Button
     private lateinit var btnLogout: Button
+    private lateinit var btnDeleteAccount: Button
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_profil, container, false)
@@ -47,16 +46,21 @@ class ProfilFragment() : Fragment() {
             val dialog = Dialog(requireContext())
             dialog.setContentView(R.layout.layout_dialog_custom_modify_password)
             val dialogInputPwd = dialog.findViewById<EditText>(R.id.profil_page_dialog_modify_password_input)
-            val dialogBtn = dialog.findViewById<Button>(R.id.profil_page_dialog_modify_password_btn_ok)
+            val dialogBtnValidate = dialog.findViewById<Button>(R.id.profil_page_dialog_modify_password_btn_ok)
+            val dialogBtnClose = dialog.findViewById<ImageButton>(R.id.profil_page_dialog_modify_password_btn_close)
 
-            dialogBtn.setOnClickListener {
+            dialogBtnClose.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialogBtnValidate.setOnClickListener {
                 if (dialogInputPwd.text.isEmpty()) {
                     Toast.makeText(requireContext(), getString(R.string.toast_enter_password), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 val queue = Volley.newRequestQueue(context)
                 val passwordRequest = object : StringRequest(
-                    Method.PUT,
+                    Request.Method.PUT,
                     Constants.API_BASE_URl + Constants.API_USER,
                     {response ->
                         Log.e("RESP", response.toString())
@@ -67,6 +71,7 @@ class ProfilFragment() : Fragment() {
                         }
                     },
                     {error ->
+                        Log.e("ERR", error.networkResponse.allHeaders.toString())
                         if (error is VolleyError || error == null || error.networkResponse != null) {
                             Toast.makeText(context,getString(R.string.toast_unknown_error),Toast.LENGTH_SHORT).show()
                         } else {
@@ -112,6 +117,27 @@ class ProfilFragment() : Fragment() {
             startActivity(intent)
 
         }
+
+
+        btnDeleteAccount.setOnClickListener {
+            val dialog = Dialog(requireContext())
+            dialog.setContentView(R.layout.layout_dialog_custom_delete_account)
+            val btnValid = dialog.findViewById<Button>(R.id.profil_page_dialog_delete_account_btn_validate)
+            val btnCancel = dialog.findViewById<Button>(R.id.profil_page_dialog_delete_account_btn_cancel)
+
+            btnValid.setOnClickListener {
+
+
+            }
+
+
+            btnCancel.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
+
 
         return view
     }
