@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.text.method.SingleLineTransformationMethod
 import android.widget.*
 import com.android.volley.NoConnectionError
 import com.android.volley.toolbox.StringRequest
@@ -91,6 +94,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(registerIntent)
         }
 
+        btnPasswordVisibility.setOnClickListener {
+
+               
+        }
 
     }
 }
