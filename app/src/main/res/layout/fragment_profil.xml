@@ -68,15 +68,6 @@
         app:layout_constraintStart_toStartOf="@+id/profil_page_title_section_personnal_info"
         app:layout_constraintTop_toBottomOf="@+id/profil_page_section_personnal_cardView" />
 
-    <ImageView
-        android:id="@+id/profil_page_section_password_ic_pen"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/ic_pen"
-        app:layout_constraintBottom_toBottomOf="@+id/profil_page_title_section_password_info"
-        app:layout_constraintEnd_toEndOf="@+id/profil_page_section_personnal_cardView"
-        app:layout_constraintTop_toTopOf="@+id/profil_page_title_section_password_info" />
-
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profil_page_section_password_cardView"
@@ -108,27 +99,24 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profil_page_section_password_subtitle"
                 android:layout_alignStart="@+id/profil_page_section_password_subtitle"
+                android:inputType="textWebPassword"
                 android:text="@string/default_text"
                 android:textSize="15sp"
-                android:inputType="textWebPassword"
                 tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/profil_page_section_password_ic_pen"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="0dp"
+                android:src="@drawable/ic_pen" />
 
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
-
-    <Button
-        android:id="@+id/profil_page_btn_modify_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_modify_password"
-        android:layout_marginTop="@dimen/margin_page"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profil_page_section_password_cardView" />
-
-
 
 
     <Button

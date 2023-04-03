@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.android.volley.Request
@@ -21,7 +22,6 @@ import org.json.JSONObject
 class ProfilFragment() : Fragment() {
 
     private lateinit var loginText: TextView
-    private lateinit var btnModifyPassword: Button
     private lateinit var btnLogout: Button
     private lateinit var btnDeleteAccount: Button
 
@@ -29,7 +29,6 @@ class ProfilFragment() : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profil, container, false)
 
         loginText = view.findViewById(R.id.profil_page_section_personnal_info_user_login)
-        btnModifyPassword = view.findViewById(R.id.profil_page_btn_modify_password)
         btnLogout = view.findViewById(R.id.profil_page_btn_logout)
         btnDeleteAccount = view.findViewById(R.id.profil_page_btn_delete_account)
 
@@ -39,7 +38,7 @@ class ProfilFragment() : Fragment() {
         loginText.text = userName
         val queue = Volley.newRequestQueue(context)
 
-        btnModifyPassword.setOnClickListener {
+        view.findViewById<CardView>(R.id.profil_page_section_password_cardView).setOnClickListener {
             /* open custom dialog to modify password */
             val dialogPwd = Dialog(requireContext())
             dialogPwd.setContentView(R.layout.layout_dialog_custom_modify_password)
