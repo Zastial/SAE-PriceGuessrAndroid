@@ -9,17 +9,13 @@ import fr.etudiant.priceguessr.Product
  * GameLogic implements the game logic
  * @param list is list of Product
  */
-class GameLogic(list: List<Product>){
+class GameLogic(): ViewModel() {
 
     private var listProduct : MutableList<Pair<Product, Guess>>
     private var index : Int
 
     init {
         this.listProduct = mutableListOf()
-        for (prod in list) {
-            val guess = Guess()
-            listProduct.add(Pair(prod, guess))
-        }
         this.index = 0
     }
 
@@ -45,9 +41,19 @@ class GameLogic(list: List<Product>){
         }
     }
 
-
     fun getGuess(): Guess? {
         return if (listProduct.isEmpty()) null else listProduct[index].second
+    }
+
+    fun isEmpty(): Boolean = listProduct.isEmpty()
+
+    fun setProducts(list: Array<Product>) {
+        this.listProduct = mutableListOf()
+        for (prod in list) {
+            val guess = Guess()
+            listProduct.add(Pair(prod, guess))
+        }
+        this.index = 0
     }
 
 }

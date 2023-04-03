@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
@@ -24,28 +25,28 @@ import org.json.JSONObject
 class GameFragment : Fragment() {
 
     private lateinit var data: Array<Product>
-    private lateinit var gl: GameLogic
     private lateinit var productImage: ImageView
     private lateinit var productName: TextView
     private lateinit var productPriceInput: EditText
     private lateinit var btnValidate: Button
     private lateinit var btnPreviousProduct: Button
     private lateinit var btnNextProduct: Button
-
+    private lateinit var gl: GameLogic
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        try {
-            /* get product from the bundle */
-            data = arguments?.getParcelableArray("products") as Array<Product>
-        } catch (e : Exception) {
-            /* invalid list of products passed to fragment */
-            Toast.makeText(requireActivity(), getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
-            return null
+        gl = ViewModelProvider(requireActivity()).get(GameLogic::class.java)
+        if (gl.isEmpty()) {
+            try {
+                /* get product from the bundle */
+                data = arguments?.getParcelableArray("products") as Array<Product>
+                gl.setProducts(data)
+            } catch (e : Exception) {
+                /* invalid list of products passed to fragment */
+                Toast.makeText(requireActivity(), getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
+                return null
+            }
         }
-        /* initialise gamelogic */
-
-        gl = GameLogic(data.toList())
 
         val view = inflater.inflate(R.layout.fragment_game, container, false)
         productImage = view.findViewById(R.id.game_page_imageView)
@@ -155,6 +156,5 @@ class GameFragment : Fragment() {
             productName.setText(currentProduct.title)
         }
     }
-
 
 }
