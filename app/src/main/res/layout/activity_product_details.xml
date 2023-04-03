@@ -67,15 +67,35 @@
         app:layout_constraintStart_toEndOf="@+id/detail_product_page_product_price"
         app:layout_constraintTop_toTopOf="@+id/detail_product_page_product_price" />
 
+
+    <View
+        android:id="@+id/view"
+        cons
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/detail_product_page_btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin_page"
+        android:layout_marginBottom="@dimen/default_margin_page"
         android:text="@string/btn_retour"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_product_page_product_price" />
+        app:layout_constraintEnd_toStartOf="@+id/view"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="263dp"
+        tools:layout_editor_absoluteY="661dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

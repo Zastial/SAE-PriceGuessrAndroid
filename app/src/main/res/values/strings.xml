@@ -43,7 +43,7 @@
     <string name="form_register">S\'inscrire</string>
     <string name="form_login">Se connecter</string>
     <string name="form_forget_password">Mot de passe oublié</string>
-    <string name="form_confirm_password">Confirmer vôtre mot de passe</string>
+    <string name="form_confirm_password">Confirmer votre mot de passe</string>
     <string name="form_already_account">Vous avez déjà un compte ?</string>
     <string name="form_no_account">Vous n\'avez pas encore de compte ?</string>
     <string name="form_modify_password_title">Modifier votre mot de passe</string>
