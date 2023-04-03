@@ -9,4 +9,6 @@ package fr.etudiant.priceguessr.gameLogic
  */
 data class Guess(var guessRemaining : Int = 5, var correct : Boolean = false, var correctPriceIsLess : Boolean = false) {
 
+
+
 }

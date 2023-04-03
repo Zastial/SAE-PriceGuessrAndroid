@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/game_page_dialog_text_answer"
+            android:id="@+id/game_page_dialog_text_answer_is_correct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_page"
@@ -39,18 +39,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/game_page_dialog_text_answer"
+            app:layout_constraintTop_toBottomOf="@+id/game_page_dialog_text_answer_is_correct"
             app:layout_constraintVertical_bias="0.363" />
 
+
         <TextView
-            android:id="@+id/game_page_dialog_number_guess_remaining"
+            android:id="@+id/game_page_dialog_guess_remaining"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_page_dialog_desc_guess_remaining"
             app:layout_constraintBottom_toTopOf="@+id/game_page_dialog_btn_ok"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/game_page_dialog_text_answer" />
+            app:layout_constraintTop_toBottomOf="@+id/game_page_dialog_text_answer_is_correct" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -96,24 +96,53 @@ class GameFragment : Fragment() {
                 Constants.API_BASE_URl + Constants.API_PRODUCT_GET_ONE + product!!.id + "/" + priceOfUser,
                 {response ->
                     Log.e("PROD", response)
-                    // TODO update guess of profuct
+                    try {
+                        val actualGuessProduct = gl.getGuess()
+                        Log.e("PROD BEFORE", actualGuessProduct.toString())
+                        /* get response */
+                        val responseBody = JSONObject(response)
+                        val guessRemaining =  responseBody.get("guessRemaining").toString().toInt()
+                        val guessIsCorrect = responseBody.get("correct").toString().toBoolean()
+                        val correctPriceIsLess = responseBody.get("correctPriceIsLess").toString().toBoolean()
+                        /* update product */
+                        actualGuessProduct?.guessRemaining =guessRemaining
+                        actualGuessProduct?.correct = guessIsCorrect
+                        actualGuessProduct?.correctPriceIsLess = correctPriceIsLess
+                        Log.e("PROD AFTER", gl.getGuess().toString())
+
+                        /* modify dialog content */
+                        val dialog = Dialog(requireContext())
+                        dialog.setContentView(R.layout.layout_dialog_custom_game_results)
+
+                        if (guessIsCorrect) {
+                            dialog.findViewById<TextView>(R.id.game_page_dialog_text_answer_is_correct).setText(R.string.game_page_dialog_title_good_answer)
+                            dialog.findViewById<TextView>(R.id.game_page_dialog_text_price_answer).setText(productPriceInput.text)
+
+                        } else {
+
+                        }
+                        dialog.findViewById<TextView>(R.id.game_page_dialog_guess_remaining).text = getString(R.string.game_page_dialog_desc_guess_remaining).replace("{X}", guessRemaining.toString())
 
 
-                    val dialog = Dialog(requireContext())
-                    dialog.setContentView(R.layout.layout_dialog_custom_game_results)
+                        dialog.findViewById<Button>(R.id.game_page_dialog_btn_ok).setOnClickListener {
+                            dialog.dismiss()
+                        }
+                        dialog.show()
+
+                    } catch (e: Exception) {
+                        Toast.makeText(context, getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
+                    }
+                    // update guess of product
+
+
+
+
+
 
 
                     //TODO traitement du code
 
 
-
-
-
-
-                    dialog.findViewById<Button>(R.id.game_page_dialog_btn_ok).setOnClickListener {
-                        dialog.dismiss()
-                    }
-                    dialog.show()
                 },
                 { error ->
                     /* Prevent if API is not running  */

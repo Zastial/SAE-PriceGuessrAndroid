@@ -24,6 +24,10 @@ class GameLogic(): ViewModel() {
         return if (listProduct.isEmpty()) null else listProduct[index].first
     }
 
+    fun getGuess(): Guess? {
+        return if (listProduct.isEmpty()) null else listProduct[index].second
+    }
+
     fun nextProduct() {
         if (listProduct.isNotEmpty()) {
             index = (index + 1) % listProduct.size
@@ -41,9 +45,7 @@ class GameLogic(): ViewModel() {
         }
     }
 
-    fun getGuess(): Guess? {
-        return if (listProduct.isEmpty()) null else listProduct[index].second
-    }
+
 
     fun isEmpty(): Boolean = listProduct.isEmpty()
 
