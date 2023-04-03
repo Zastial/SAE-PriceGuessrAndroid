@@ -70,7 +70,6 @@
 
     <View
         android:id="@+id/view"
-        cons
         android:layout_width="4dp"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
