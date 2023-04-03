@@ -2,7 +2,6 @@ package fr.etudiant.priceguessr
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,7 +15,6 @@ import fr.etudiant.priceguessr.fragments.HistoryFragment
 import fr.etudiant.priceguessr.fragments.ProfilFragment
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonPrimitive
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {

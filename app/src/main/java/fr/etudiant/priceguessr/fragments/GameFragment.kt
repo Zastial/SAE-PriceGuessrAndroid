@@ -36,6 +36,7 @@ class GameFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         gl = ViewModelProvider(requireActivity()).get(GameLogic::class.java)
+        /* if there is no products in gameLogic we get products from the bundle */
         if (gl.isEmpty()) {
             try {
                 /* get product from the bundle */
