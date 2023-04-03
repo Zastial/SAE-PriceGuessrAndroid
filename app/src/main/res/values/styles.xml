@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BlackBtn" parent="TextAppearance.AppCompat">
+        <item name="android:background">@color/black_100</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:height">60px</item>
+        <item name="android:width">335px</item>
+        <item name="android:radius">8px</item>
+
+    </style>
+</resources>

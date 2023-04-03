@@ -58,27 +58,23 @@ class GameFragment : Fragment() {
         btnNextProduct = view.findViewById(R.id.game_page_btn_next_product)
 
 
-        /* .. revoir l'implémentation ..
-        *  probleme a cause du getProduct qui peut retourner null
-        * */
 
-        val currentProduct = gl.getProduct()
-        if (currentProduct == null) {
+        if (gl.isEmpty()) {
             Toast.makeText(context, "aucun produit n'a été récupéré", Toast.LENGTH_SHORT).show()
             /* don't load view */
             return null
         } else {
-            showProduct(currentProduct)
+            showCurrentProduct()
         }
 
         btnPreviousProduct.setOnClickListener {
             gl.previousProduct()
-            showProduct(gl.getProduct())
+            showCurrentProduct()
         }
 
         btnNextProduct.setOnClickListener {
             gl.nextProduct()
-            showProduct(gl.getProduct())
+            showCurrentProduct()
         }
 
         /* check if product null  (!! in uri)  */
@@ -105,7 +101,7 @@ class GameFragment : Fragment() {
                         val guessIsCorrect = responseBody.get("correct").toString().toBoolean()
                         val correctPriceIsLess = responseBody.get("correctPriceIsLess").toString().toBoolean()
                         /* update product */
-                        actualGuessProduct?.guessRemaining =guessRemaining
+                        actualGuessProduct?.guessRemaining = guessRemaining
                         actualGuessProduct?.correct = guessIsCorrect
                         actualGuessProduct?.correctPriceIsLess = correctPriceIsLess
                         Log.e("PROD AFTER", gl.getGuess().toString())
@@ -114,15 +110,17 @@ class GameFragment : Fragment() {
                         val dialog = Dialog(requireContext())
                         dialog.setContentView(R.layout.layout_dialog_custom_game_results)
 
+
                         if (guessIsCorrect) {
                             dialog.findViewById<TextView>(R.id.game_page_dialog_text_answer_is_correct).setText(R.string.game_page_dialog_title_good_answer)
-                            dialog.findViewById<TextView>(R.id.game_page_dialog_text_price_answer).setText(productPriceInput.text)
-
-                        } else {
-
+                            dialog.findViewById<TextView>(R.id.game_page_dialog_text_price_answer).setText(productPriceInput.text.toString() + getText(R.string.default_product_currency))
+                        } else if (correctPriceIsLess) {
+                            dialog.findViewById<TextView>(R.id.game_page_dialog_text_price_answer).setText(R.string.game_page_dialog_desc_price_is_lower)
                         }
                         dialog.findViewById<TextView>(R.id.game_page_dialog_guess_remaining).text = getString(R.string.game_page_dialog_desc_guess_remaining).replace("{X}", guessRemaining.toString())
 
+                        /* update btn validate */
+                        setValidationButton()
 
                         dialog.findViewById<Button>(R.id.game_page_dialog_btn_ok).setOnClickListener {
                             dialog.dismiss()
@@ -132,17 +130,6 @@ class GameFragment : Fragment() {
                     } catch (e: Exception) {
                         Toast.makeText(context, getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
                     }
-                    // update guess of product
-
-
-
-
-
-
-
-                    //TODO traitement du code
-
-
                 },
                 { error ->
                     /* Prevent if API is not running  */
@@ -172,18 +159,27 @@ class GameFragment : Fragment() {
             queue.add(priceRequest)
         }
 
-
-
         return view
     }
 
-    private fun showProduct(currentProduct : Product?) {
+    private fun showCurrentProduct() {
+        val currentProduct = gl.getProduct()
         if (currentProduct != null) {
-            //TODO check the "guess" of product to see if there is any attempt left or, if the correct price is already guessed
-            // in order to load the correct Dialog content
-
             Picasso.get().load(currentProduct.imgSrc).into(productImage)
             productName.setText(currentProduct.title)
+            setValidationButton()
+        }
+    }
+
+    /** setValidationButton
+     *  disable the button if user already guessed the price of product or
+     *  the maximum number of guesses has been reached
+     */
+    private fun setValidationButton() {
+        val guess = gl.getGuess()
+        if (guess !=null) {
+            btnValidate.isEnabled = !guess!!.correct && guess.guessRemaining > 0
+            Log.e("PROD", btnValidate.isEnabled.toString())
         }
     }
 

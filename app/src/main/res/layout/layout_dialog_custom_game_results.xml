@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_page_dialog_desc_price_is_higher"
-            app:layout_constraintBottom_toBottomOf="@+id/game_page_dialog_number_guess_remaining"
+            app:layout_constraintBottom_toTopOf="@+id/game_page_dialog_guess_remaining"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:text="@string/game_page_dialog_desc_guess_remaining"
             app:layout_constraintBottom_toTopOf="@+id/game_page_dialog_btn_ok"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/game_page_dialog_text_answer_is_correct" />
 
