@@ -31,16 +31,14 @@
         app:layout_constraintTop_toBottomOf="@+id/login_page_app_name" />
 
 
-
-
     <EditText
         android:id="@+id/login_page_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text=""
         app:layout_constraintStart_toStartOf="@+id/login_page_label_email"
         app:layout_constraintTop_toBottomOf="@+id/login_page_label_email" />
-
 
     <TextView
         android:id="@+id/login_page_label_password"
@@ -61,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword"
+        android:inputType=""
         app:layout_constraintStart_toStartOf="@+id/login_page_label_password"
         app:layout_constraintTop_toBottomOf="@+id/login_page_label_password" />
 

@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import fr.etudiant.priceguessr.Constants
 import fr.etudiant.priceguessr.Product
 import fr.etudiant.priceguessr.ProductDetailsActivity
 import fr.etudiant.priceguessr.R
@@ -16,9 +15,9 @@ import fr.etudiant.priceguessr.R
 class ProductAdapter(var listProduct : List<Product>) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val productImage = view.findViewById<ImageView>(R.id.item_image)
-        val productName = view.findViewById<TextView>(R.id.item_name)
-        val productDesc = view.findViewById<TextView>(R.id.item_description)
+        val productImage = view.findViewById<ImageView>(R.id.item_product_image)
+        val productName = view.findViewById<TextView>(R.id.item_product_name)
+        val productDesc = view.findViewById<TextView>(R.id.item_product_description)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

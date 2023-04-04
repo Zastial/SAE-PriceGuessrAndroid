@@ -1,6 +1,7 @@
 package fr.etudiant.priceguessr.fragments
 
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,6 +35,12 @@ class GameFragment : Fragment() {
     private lateinit var gl: GameLogic
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+
+
+        val queue = Volley.newRequestQueue(context)
+
+
 
         gl = ViewModelProvider(requireActivity()).get(GameLogic::class.java)
         /* if there is no products in gameLogic we get products from the bundle */
@@ -86,7 +93,7 @@ class GameFragment : Fragment() {
             }
 
             val product = gl.getProduct()
-            val queue = Volley.newRequestQueue(context)
+
             val priceRequest = object : StringRequest(
                 Request.Method.GET,
                 Constants.API_BASE_URl + Constants.API_PRODUCT_GET_ONE + product!!.id + "/" + priceOfUser,
@@ -108,7 +115,7 @@ class GameFragment : Fragment() {
 
                         /* modify dialog content */
                         val dialog = Dialog(requireContext())
-                        dialog.setContentView(R.layout.layout_dialog_custom_game_results)
+                        dialog.setContentView(R.layout.dialog_custom_game_results)
 
 
                         if (guessIsCorrect) {
@@ -179,7 +186,7 @@ class GameFragment : Fragment() {
         val guess = gl.getGuess()
         if (guess !=null) {
             btnValidate.isEnabled = !guess!!.correct && guess.guessRemaining > 0
-            Log.e("PROD", btnValidate.isEnabled.toString())
+            Log.e("PROD is available", btnValidate.isEnabled.toString())
         }
     }
 

@@ -63,6 +63,7 @@
     <string name="btn_modify_password">Modifier mon mot de passe</string>
     <string name="btn_retour">Retour</string>
     <string name="btn_delete_account">Supprimer mon compte</string>
+    <string name="btn_availability">Disponibilités</string>
 
 
 
@@ -78,6 +79,7 @@
     <string name="toast_decode_invalid">Erreur lors de la récupération des données</string>
     <string name="toast_enter_password">Veuillez entrer votre mot passe</string>
     <string name="api_connection_error">Un problème de connexion est survenu.</string>
+    <string name="toast_no_data_available">Aucune donnée n\'est disponible pour le moment.</string>
 
     
     <!-- Dialog -->
@@ -88,6 +90,7 @@
     <string name="game_page_dialog_desc_price_is_higher">Le prix est plus haut</string>
     <string name="game_page_dialog_desc_price_is_lower">Le prix est plus bas</string>
     <string name="game_page_dialog_desc_guess_remaining">Il te reste {X} chances.</string>
+    <string name="product_detail_page_dialog_shop_title">Liste des magasins ayant ce produit en stock</string>
 
 
     

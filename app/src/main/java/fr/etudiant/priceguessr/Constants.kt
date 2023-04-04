@@ -12,9 +12,11 @@ class Constants {
 
         //product
         val API_PRODUCT_GET_ALL = "/product"
-        val API_PRODUCT_GET_ONE = "/product/" //need params
+        val API_PRODUCT_GET_ONE = "/product/" //require params (id ..)
         val API_PRODUCT_GET_DAILY= "/product/daily"
-        val API_PRODUCT_GET_DAILY_BY_DATE = "product/daily/" // need date
+        val API_PRODUCT_GET_DAILY_GUESS = "/product/daily/guess"
+        val API_PRODUCT_GET_DAILY_BY_DATE = "/product/daily/" // require date
+        val API_PRODUCT_SHOP_AVAILABILITY = "/product/availability/" //require product id
 
         //user
         /* API_USER_POST_REGISTER (post) Register a new user with login and password */

@@ -4,14 +4,12 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DefaultItemAnimator
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
@@ -41,7 +39,7 @@ class ProfilFragment() : Fragment() {
         view.findViewById<CardView>(R.id.profil_page_section_password_cardView).setOnClickListener {
             /* open custom dialog to modify password */
             val dialogPwd = Dialog(requireContext())
-            dialogPwd.setContentView(R.layout.layout_dialog_custom_modify_password)
+            dialogPwd.setContentView(R.layout.dialog_custom_modify_password)
             val dialogInputPwd = dialogPwd.findViewById<EditText>(R.id.profil_page_dialog_modify_password_input)
             val dialogBtnValidate = dialogPwd.findViewById<Button>(R.id.profil_page_dialog_modify_password_btn_ok)
             val dialogBtnClose = dialogPwd.findViewById<ImageButton>(R.id.profil_page_dialog_modify_password_btn_close)
@@ -123,7 +121,7 @@ class ProfilFragment() : Fragment() {
 
         btnDeleteAccount.setOnClickListener {
             val dialogAccount = Dialog(requireContext())
-            dialogAccount.setContentView(R.layout.layout_dialog_custom_delete_account)
+            dialogAccount.setContentView(R.layout.dialog_custom_delete_account)
             val btnValid = dialogAccount.findViewById<Button>(R.id.profil_page_dialog_delete_account_btn_validate)
             val btnCancel = dialogAccount.findViewById<Button>(R.id.profil_page_dialog_delete_account_btn_cancel)
 

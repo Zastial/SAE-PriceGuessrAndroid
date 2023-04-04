@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/item_product_cardView"
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:cardCornerRadius="8dp"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/item_image"
+            android:id="@+id/item_product_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -25,7 +25,7 @@
     </androidx.cardview.widget.CardView>
 
     <View
-        android:id="@+id/view_separation"
+        android:id="@+id/item_product_view_separation"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:visibility="invisible"
@@ -33,34 +33,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/item_product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/default_product_name"
-        app:layout_constraintBottom_toTopOf="@+id/view_separation"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintBottom_toTopOf="@+id/item_product_view_separation"
+        app:layout_constraintStart_toEndOf="@+id/item_product_cardView"
         android:layout_marginStart="@dimen/item_margin"/>
 
     <TextView
-        android:id="@+id/item_description"
+        android:id="@+id/item_product_description"
         android:layout_width="@dimen/item_length_description"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
         android:text="@string/default_product_description"
-        app:layout_constraintStart_toStartOf="@+id/item_name"
-        app:layout_constraintTop_toBottomOf="@+id/view_separation" />
+        app:layout_constraintStart_toStartOf="@+id/item_product_name"
+        app:layout_constraintTop_toBottomOf="@+id/item_product_view_separation" />
 
     <ImageButton
-        android:id="@+id/arrow_icon"
+        android:id="@+id/item_product_arrow_icon"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_baseline_arrow_forward_24"
         android:background="@null"
         android:layout_marginEnd="@dimen/item_margin"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView"
+        app:layout_constraintBottom_toBottomOf="@+id/item_product_cardView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/item_product_cardView"
         android:contentDescription="@string/arrow_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
