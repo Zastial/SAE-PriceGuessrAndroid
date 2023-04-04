@@ -34,35 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val queue = Volley.newRequestQueue(this)
-        /* Request to get "Guess" for all product */
-        val guessProductRequest = object : StringRequest(
-            Method.GET,
-            Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY_GUESS,
-            {response ->
-                try {
-                    val guessListProduct = Json.decodeFromString<List<Guess>>(response)
-                    Log.e("GUESS REQ", guessListProduct.toString())
-                } catch (e : Exception) {
-                    Toast.makeText(this, getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
-                }
 
-
-            },
-            {error ->
-                if (error is VolleyError ||  error == null || error.networkResponse != null) {
-                    startLoginActivity()
-                    finish()
-                } else {
-                    Log.e("GUESS REQ", "error reception main activity guess")
-                }
-            }
-        ) {
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = mutableMapOf<String, String>()
-                headers[Constants.HEADER_TOKEN_AUTHORIZATION] = Token().getToken(this@MainActivity)
-                return headers
-            }
-        }
 
         /* Request when starting the app */
         val loadProductRequest = object : StringRequest(
@@ -76,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                     /* Give array of products to fragment with bundle*/
                     val bundle = Bundle()
                     bundle.putParcelableArray("products", productList.toTypedArray())
+
 
                     /* Load fragment with bundle */
                     loadFragment(GameFragment(), bundle)

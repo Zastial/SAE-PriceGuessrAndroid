@@ -20,6 +20,11 @@ import fr.etudiant.priceguessr.Product
 import fr.etudiant.priceguessr.R
 import fr.etudiant.priceguessr.Token
 import fr.etudiant.priceguessr.gameLogic.GameLogic
+import fr.etudiant.priceguessr.gameLogic.Guess
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -35,10 +40,48 @@ class GameFragment : Fragment() {
     private lateinit var gl: GameLogic
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+        val view = inflater.inflate(R.layout.fragment_game, container, false)
+        productImage = view.findViewById(R.id.game_page_imageView)
+        productName = view.findViewById(R.id.game_page_product_name_input)
+        productPriceInput = view.findViewById(R.id.game_page_product_price_input)
+        btnValidate = view.findViewById(R.id.game_page_btn_validate)
+        btnPreviousProduct = view.findViewById(R.id.game_page_btn_previous_product)
+        btnNextProduct = view.findViewById(R.id.game_page_btn_next_product)
 
 
         val queue = Volley.newRequestQueue(context)
+
+        /* resquest to get "GUESS" for dailty products */
+        val guessProductRequest = object : StringRequest(
+            Method.GET,
+            Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY_GUESS,
+            {response ->
+                /* if the response contain at least one guess to update, we try to decode the response
+                * otherwise there is no guess to update for any product
+                */
+                if (response.toString() != "[]") {
+                    Log.e("GUESS REQ", "reponse is not empty :" + response)
+                    try {
+                        val guessListProduct = JSONArray(response)
+
+                        Log.e("GUESS REQ", guessListProduct.toString())
+                    } catch (e : Exception) {
+                        Toast.makeText(context, getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            },
+            {error ->
+                    Log.e("GUESS REQ", "error reception main activity guess")
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = mutableMapOf<String, String>()
+                headers[Constants.HEADER_TOKEN_AUTHORIZATION] = Token().getToken(requireActivity())
+                return headers
+            }
+        }
+
 
 
 
@@ -51,18 +94,12 @@ class GameFragment : Fragment() {
                 gl.setProducts(data)
             } catch (e : Exception) {
                 /* invalid list of products passed to fragment */
-                Toast.makeText(requireActivity(), getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), e.toString(), Toast.LENGTH_SHORT).show()
                 return null
             }
         }
 
-        val view = inflater.inflate(R.layout.fragment_game, container, false)
-        productImage = view.findViewById(R.id.game_page_imageView)
-        productName = view.findViewById(R.id.game_page_product_name_input)
-        productPriceInput = view.findViewById(R.id.game_page_product_price_input)
-        btnValidate = view.findViewById(R.id.game_page_btn_validate)
-        btnPreviousProduct = view.findViewById(R.id.game_page_btn_previous_product)
-        btnNextProduct = view.findViewById(R.id.game_page_btn_next_product)
+        queue.add(guessProductRequest)
 
 
 
@@ -98,7 +135,7 @@ class GameFragment : Fragment() {
                 Request.Method.GET,
                 Constants.API_BASE_URl + Constants.API_PRODUCT_GET_ONE + product!!.id + "/" + priceOfUser,
                 {response ->
-                    Log.e("PROD", response)
+                    Log.e("PROD response in price request", response)
                     try {
                         val actualGuessProduct = gl.getGuess()
                         Log.e("PROD BEFORE", actualGuessProduct.toString())
