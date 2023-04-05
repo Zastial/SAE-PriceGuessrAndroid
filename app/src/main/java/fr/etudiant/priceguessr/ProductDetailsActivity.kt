@@ -1,13 +1,11 @@
 package fr.etudiant.priceguessr
 
 import android.app.Dialog
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.util.Log
 import android.widget.*
-import androidx.annotation.RequiresApi
-import androidx.core.net.toUri
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,11 +17,12 @@ import com.squareup.picasso.Picasso
 import fr.etudiant.priceguessr.adapter.ShopAdapter
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.json.JSONArray
 import org.json.JSONObject
+import java.time.Instant
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import javax.security.auth.login.LoginException
+import java.time.temporal.ChronoField
+import java.util.*
 
 class ProductDetailsActivity : AppCompatActivity() {
 
@@ -61,14 +60,19 @@ class ProductDetailsActivity : AppCompatActivity() {
                 Picasso.get().load(data.imgSrc).into(image)
                 title.text = data.title
                 description.text = data.desc
-
-                price.text = data.price.toString()
                 productId = data.id
+
+                val date = Date.from(Instant.parse(data.date))
+                if (DateUtils.isToday(date.time)) {
+                    price.text = data.price.toString()
+                } else {
+                    price.text = "???"
+                }
             }
 
         } catch (e : Exception) {
             /* invalid product passed to activity */
-            Toast.makeText(this, getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_decode_invalid)+e.message, Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -123,7 +127,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 {error ->
                     /* Prevent if API is not running  */
                     if (error is VolleyError ||  error == null || error.networkResponse != null) {
-                        //TODO
+                        // TODO
 
                     } else {
                         try {

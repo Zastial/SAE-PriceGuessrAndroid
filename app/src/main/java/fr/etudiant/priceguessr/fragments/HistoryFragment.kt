@@ -59,9 +59,6 @@ class HistoryFragment : Fragment() {
                 return header
             }
         }
-
-
-
         queue.add(productRequest)
 
         return view
