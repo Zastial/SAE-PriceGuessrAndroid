@@ -27,12 +27,14 @@ import org.json.JSONObject
 class MainActivity : AppCompatActivity() {
 
     /* init game logic and two request response (productList, GuessList) */
-    lateinit var gl : GameLogic
-    private var productList: Array<Product> = arrayOf()
-    private var guessProductList: Array<Guess> = arrayOf()
+    private lateinit var gl: GameLogic
+    private var productList: Array<Product>? = null
+    private var guessProductList: Array<Guess>? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        gl = ViewModelProvider(this@MainActivity).get(GameLogic::class.java)
         setContentView(R.layout.activity_main)
 
         val navigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -59,8 +61,7 @@ class MainActivity : AppCompatActivity() {
                 try {
                     /* Get product from response */
                     productList = Json.decodeFromString<Array<Product>>(response)
-
-                    loadFragment(GameFragment())
+                    populateGameLogic()
 
                 } catch (e : Exception) {
                     Toast.makeText(this, getString(R.string.toast_decode_invalid) , Toast.LENGTH_LONG).show()
@@ -172,9 +173,11 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun populateGameLogic() {
-        if (!productList.isEmpty() && !guessProductList.isEmpty()) {
-            gl.setProducts(productList)
-            gl.setGuess(guessProductList)
+
+        if (productList != null && guessProductList != null) {
+            gl.setProducts(productList!!)
+            gl.setGuess(guessProductList!!)
+            loadFragment(GameFragment())
         }
     }
 

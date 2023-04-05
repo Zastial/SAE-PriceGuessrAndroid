@@ -46,7 +46,6 @@ class GameFragment : Fragment() {
         val queue = Volley.newRequestQueue(context)
         gl = ViewModelProvider(requireActivity()).get(GameLogic::class.java)
 
-
         if (gl.isEmpty()) {
             Toast.makeText(context, "aucun produit n'a été récupéré", Toast.LENGTH_SHORT).show()
             /* don't load view */
@@ -166,7 +165,7 @@ class GameFragment : Fragment() {
     private fun setValidationButton() {
         val guess = gl.getGuess()
         if (guess !=null) {
-            btnValidate.isEnabled = !guess!!.correct && guess.guessRemaining > 0
+            btnValidate.isEnabled = !guess.correct && guess.guessRemaining > 0
             Log.e("PROD is available", btnValidate.isEnabled.toString())
         }
     }
