@@ -9,8 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.RequestFuture
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -19,11 +17,11 @@ import fr.etudiant.priceguessr.fragments.HistoryFragment
 import fr.etudiant.priceguessr.fragments.ProfilFragment
 import fr.etudiant.priceguessr.gameLogic.GameLogic
 import fr.etudiant.priceguessr.gameLogic.Guess
+import fr.etudiant.priceguessr.models.Product
+import fr.etudiant.priceguessr.models.Token
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.json.JSONArray
 import org.json.JSONObject
-import java.util.concurrent.ExecutionException
 
 
 class MainActivity : AppCompatActivity() {

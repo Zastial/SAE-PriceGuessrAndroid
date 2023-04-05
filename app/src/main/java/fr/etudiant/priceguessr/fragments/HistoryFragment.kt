@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.etudiant.priceguessr.Constants
-import fr.etudiant.priceguessr.Product
+import fr.etudiant.priceguessr.models.Product
 import fr.etudiant.priceguessr.R
-import fr.etudiant.priceguessr.Token
+import fr.etudiant.priceguessr.models.Token
 import fr.etudiant.priceguessr.adapter.ProductAdapter
 import fr.etudiant.priceguessr.adapter.ProductDecoration
 import kotlinx.serialization.decodeFromString

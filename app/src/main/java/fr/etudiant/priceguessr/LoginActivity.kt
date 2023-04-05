@@ -4,13 +4,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
-import android.text.method.SingleLineTransformationMethod
 import android.widget.*
 import com.android.volley.NoConnectionError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import fr.etudiant.priceguessr.models.Token
 import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {

@@ -1,10 +1,7 @@
-package fr.etudiant.priceguessr
+package fr.etudiant.priceguessr.models
 
 import android.app.Activity
 import android.content.Context
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
-import android.util.Log
 import androidx.lifecycle.ViewModel
 
 class Token() : ViewModel() {

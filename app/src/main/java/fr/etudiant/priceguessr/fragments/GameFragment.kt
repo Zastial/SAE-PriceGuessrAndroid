@@ -1,7 +1,6 @@
 package fr.etudiant.priceguessr.fragments
 
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,22 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import fr.etudiant.priceguessr.Constants
-import fr.etudiant.priceguessr.Product
+import fr.etudiant.priceguessr.models.Product
 import fr.etudiant.priceguessr.R
-import fr.etudiant.priceguessr.Token
+import fr.etudiant.priceguessr.models.Token
 import fr.etudiant.priceguessr.gameLogic.GameLogic
-import fr.etudiant.priceguessr.gameLogic.Guess
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
-import org.json.JSONArray
 import org.json.JSONObject
 
 

@@ -1,8 +1,7 @@
 package fr.etudiant.priceguessr.gameLogic
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import fr.etudiant.priceguessr.Product
+import fr.etudiant.priceguessr.models.Product
 
 
 /**

@@ -15,6 +15,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import fr.etudiant.priceguessr.*
+import fr.etudiant.priceguessr.models.Token
 import org.json.JSONObject
 
 class ProfilFragment() : Fragment() {
