@@ -18,10 +18,8 @@ import fr.etudiant.priceguessr.adapter.ShopAdapter
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.time.Instant
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoField
 import java.util.*
 
 class ProductDetailsActivity : AppCompatActivity() {
@@ -62,8 +60,10 @@ class ProductDetailsActivity : AppCompatActivity() {
                 description.text = data.desc
                 productId = data.id
 
-                val date = Date.from(Instant.parse(data.date))
-                if (DateUtils.isToday(date.time)) {
+                val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+                val date = format.parse(data.date)
+
+                if (DateUtils.isToday(date!!.time)) {
                     price.text = data.price.toString()
                 } else {
                     price.text = "???"

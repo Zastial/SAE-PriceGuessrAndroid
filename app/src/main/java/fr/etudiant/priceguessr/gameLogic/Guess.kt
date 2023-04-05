@@ -1,5 +1,8 @@
 package fr.etudiant.priceguessr.gameLogic
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
  * Data class Guess allows to stock the response of the API when
  * getting updated information of products
@@ -7,8 +10,12 @@ package fr.etudiant.priceguessr.gameLogic
  * @param correct true if the user guess the correct price of the product
  * @param correctPriceIsLess true if the correct price of product is less than the guessed price
  */
-data class Guess(var guessRemaining : Int = 5, var correct : Boolean = false, var correctPriceIsLess : Boolean = false) {
+
+@Serializable
+data class Guess(var guessRemaining : Int = 5,
+                 var correct : Boolean = false,
+                 var correctPriceIsLess : Boolean = false,
+                 @SerialName("productId") val productId: String? = null
+)
 
 
-
-}
