@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType=""
+        android:inputType="textWebPassword"
         app:layout_constraintStart_toStartOf="@+id/login_page_label_password"
         app:layout_constraintTop_toBottomOf="@+id/login_page_label_password" />
 

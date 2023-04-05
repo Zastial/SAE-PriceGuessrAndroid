@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import com.android.volley.NoConnectionError
 import com.android.volley.toolbox.StringRequest
@@ -93,8 +94,15 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnPasswordVisibility.setOnClickListener {
+            // 131073 = password hidden
+            // 225 = password visible
+            val inputType = passwordInput.inputType
+            if (inputType == 131073) {
+                passwordInput.inputType = 225
+            } else {
+                passwordInput.inputType = 131073
+            }
 
-               
         }
 
     }

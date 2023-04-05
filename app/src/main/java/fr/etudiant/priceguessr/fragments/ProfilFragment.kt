@@ -44,7 +44,19 @@ class ProfilFragment() : Fragment() {
             val dialogInputPwd = dialogPwd.findViewById<EditText>(R.id.profil_page_dialog_modify_password_input)
             val dialogBtnValidate = dialogPwd.findViewById<Button>(R.id.profil_page_dialog_modify_password_btn_ok)
             val dialogBtnClose = dialogPwd.findViewById<ImageButton>(R.id.profil_page_dialog_modify_password_btn_close)
+            val btnPasswordVisibility = dialogPwd.findViewById<ImageButton>(R.id.profil_page_dialog_modify_password_btn_visibility)
 
+
+            btnPasswordVisibility.setOnClickListener {
+                // 131073 = password hidden
+                // 225 = password visible
+                val inputType = dialogInputPwd.inputType
+                if (inputType == 131073) {
+                    dialogInputPwd.inputType = 225
+                } else {
+                    dialogInputPwd.inputType = 131073
+                }
+            }
 
 
             /* modify password validation */
