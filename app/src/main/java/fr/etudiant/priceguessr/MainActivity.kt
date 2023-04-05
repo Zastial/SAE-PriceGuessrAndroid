@@ -175,7 +175,6 @@ class MainActivity : AppCompatActivity() {
         if (!productList.isEmpty() && !guessProductList.isEmpty()) {
             gl.setProducts(productList)
             gl.setGuess(guessProductList)
-
         }
     }
 
