@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import fr.etudiant.priceguessr.Constants
+import fr.etudiant.priceguessr.MainActivity
 import fr.etudiant.priceguessr.models.Product
 import fr.etudiant.priceguessr.R
 import fr.etudiant.priceguessr.models.Token
@@ -42,22 +44,7 @@ class GameFragment : Fragment() {
         btnNextProduct = view.findViewById(R.id.game_page_btn_next_product)
 
         val queue = Volley.newRequestQueue(context)
-
-
-        /* if there is no products in gameLogic we get products from the bundle */
-        if (gl.isEmpty()) {
-            try {
-                /* get product from the bundle */
-                data = arguments?.getParcelableArray("products") as Array<Product>
-                gl.setProducts(data)
-            } catch (e : Exception) {
-                /* invalid list of products passed to fragment */
-                Toast.makeText(requireActivity(), e.toString(), Toast.LENGTH_SHORT).show()
-                return null
-            }
-        }
-
-
+        gl = ViewModelProvider(requireActivity()).get(GameLogic::class.java)
 
 
         if (gl.isEmpty()) {

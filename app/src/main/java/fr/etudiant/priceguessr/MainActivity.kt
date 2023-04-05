@@ -27,7 +27,7 @@ import org.json.JSONObject
 class MainActivity : AppCompatActivity() {
 
     /* init game logic and two request response (productList, GuessList) */
-    val gl = ViewModelProvider(this@MainActivity).get(GameLogic::class.java)
+    lateinit var gl : GameLogic
     private var productList: Array<Product> = arrayOf()
     private var guessProductList: Array<Guess> = arrayOf()
 
@@ -36,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val navigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        gl = ViewModelProvider(this@MainActivity).get(fr.etudiant.priceguessr.gameLogic.GameLogic::class.java)
+
 
         /*  if token is empty we don't need to call API */
         if (Token().getToken(this@MainActivity).isEmpty()) {

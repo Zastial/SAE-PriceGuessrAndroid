@@ -14,7 +14,7 @@ class Constants {
         val API_PRODUCT_GET_ALL = "/product"
         val API_PRODUCT_GET_ONE = "/product/" //require params (id ..)
         val API_PRODUCT_GET_DAILY= "/product/daily"
-        val API_PRODUCT_GET_DAILY_GUESS = "/product/daily/guess"
+        val API_PRODUCT_GET_DAILY_GUESS = "/product/daily/guesses"
         val API_PRODUCT_GET_DAILY_BY_DATE = "/product/daily/" // require date
         val API_PRODUCT_SHOP_AVAILABILITY = "/product/availability/" //require product id
 
