@@ -15,6 +15,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import fr.etudiant.priceguessr.Constants
+import fr.etudiant.priceguessr.MainActivity
 import fr.etudiant.priceguessr.models.Product
 import fr.etudiant.priceguessr.R
 import fr.etudiant.priceguessr.models.Token
@@ -44,8 +45,6 @@ class GameFragment : Fragment() {
 
         val queue = Volley.newRequestQueue(context)
         gl = ViewModelProvider(requireActivity()).get(GameLogic::class.java)
-
-        /* if there is no products in gameLogic we get products from the bundle */
 
         if (gl.isEmpty()) {
             Toast.makeText(context, "aucun produit n'a été récupéré", Toast.LENGTH_SHORT).show()
@@ -166,7 +165,7 @@ class GameFragment : Fragment() {
     private fun setValidationButton() {
         val guess = gl.getGuess()
         if (guess !=null) {
-            btnValidate.isEnabled = !guess!!.correct && guess.guessRemaining > 0
+            btnValidate.isEnabled = !guess.correct && guess.guessRemaining > 0
             Log.e("PROD is available", btnValidate.isEnabled.toString())
         }
     }
