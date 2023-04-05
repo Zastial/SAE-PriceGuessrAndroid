@@ -15,6 +15,9 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import fr.etudiant.priceguessr.adapter.ShopAdapter
+import fr.etudiant.priceguessr.models.Product
+import fr.etudiant.priceguessr.models.Shop
+import fr.etudiant.priceguessr.models.Token
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
@@ -125,7 +128,6 @@ class ProductDetailsActivity : AppCompatActivity() {
 
                 },
                 {error ->
-                    Log.e("ERROR SHOP ", JSONObject(error.networkResponse.data.decodeToString()).getString("message"))
                     /* Prevent if API is not running  */
                     if (error is VolleyError ||  error == null || error.networkResponse != null) {
                         // TODO

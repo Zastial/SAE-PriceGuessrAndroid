@@ -1,4 +1,4 @@
-package fr.etudiant.priceguessr
+package fr.etudiant.priceguessr.models
 
 import kotlinx.serialization.Serializable
 

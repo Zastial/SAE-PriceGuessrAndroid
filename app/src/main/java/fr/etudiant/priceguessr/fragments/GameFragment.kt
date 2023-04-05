@@ -1,7 +1,6 @@
 package fr.etudiant.priceguessr.fragments
 
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,22 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import fr.etudiant.priceguessr.Constants
-import fr.etudiant.priceguessr.Product
+import fr.etudiant.priceguessr.models.Product
 import fr.etudiant.priceguessr.R
-import fr.etudiant.priceguessr.Token
+import fr.etudiant.priceguessr.models.Token
 import fr.etudiant.priceguessr.gameLogic.GameLogic
-import fr.etudiant.priceguessr.gameLogic.Guess
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
-import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -48,43 +41,9 @@ class GameFragment : Fragment() {
         btnPreviousProduct = view.findViewById(R.id.game_page_btn_previous_product)
         btnNextProduct = view.findViewById(R.id.game_page_btn_next_product)
 
-
         val queue = Volley.newRequestQueue(context)
 
-        /* resquest to get "GUESS" for dailty products */
-        val guessProductRequest = object : StringRequest(
-            Method.GET,
-            Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY_GUESS,
-            {response ->
-                /* if the response contain at least one guess to update, we try to decode the response
-                * otherwise there is no guess to update for any product
-                */
-                if (response.toString() != "[]") {
-                    Log.e("GUESS REQ", "reponse is not empty :" + response)
-                    try {
-                        val guessListProduct = JSONArray(response)
 
-                        Log.e("GUESS REQ", guessListProduct.toString())
-                    } catch (e : Exception) {
-                        Toast.makeText(context, getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-            },
-            {error ->
-                    Log.e("GUESS REQ", error.toString() +"error reception main activity guess")
-            }
-        ) {
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = mutableMapOf<String, String>()
-                headers[Constants.HEADER_TOKEN_AUTHORIZATION] = Token().getToken(requireActivity())
-                return headers
-            }
-        }
-
-
-
-        gl = ViewModelProvider(requireActivity()).get(GameLogic::class.java)
         /* if there is no products in gameLogic we get products from the bundle */
         if (gl.isEmpty()) {
             try {
@@ -98,7 +57,6 @@ class GameFragment : Fragment() {
             }
         }
 
-        queue.add(guessProductRequest)
 
 
 

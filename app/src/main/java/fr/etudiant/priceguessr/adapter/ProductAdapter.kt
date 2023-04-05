@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import fr.etudiant.priceguessr.Product
+import fr.etudiant.priceguessr.models.Product
 import fr.etudiant.priceguessr.ProductDetailsActivity
 import fr.etudiant.priceguessr.R
 

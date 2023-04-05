@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
@@ -14,12 +15,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import fr.etudiant.priceguessr.fragments.GameFragment
 import fr.etudiant.priceguessr.fragments.HistoryFragment
 import fr.etudiant.priceguessr.fragments.ProfilFragment
+import fr.etudiant.priceguessr.gameLogic.GameLogic
 import fr.etudiant.priceguessr.gameLogic.Guess
+import fr.etudiant.priceguessr.models.Product
+import fr.etudiant.priceguessr.models.Token
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
+
 class MainActivity : AppCompatActivity() {
+
+    /* init game logic and two request response (productList, GuessList) */
+    val gl = ViewModelProvider(this@MainActivity).get(GameLogic::class.java)
+    private var productList: Array<Product> = arrayOf()
+    private var guessProductList: Array<Guess> = arrayOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +43,11 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        val queue = Volley.newRequestQueue(this)
 
+        /* ================================    Request   ======================================== */
+
+        val queue = Volley.newRequestQueue(this)
+        /* init GameLogic */
 
         /* Request when starting the app */
         val loadProductRequest = object : StringRequest(
@@ -43,15 +56,9 @@ class MainActivity : AppCompatActivity() {
             {response ->
                 try {
                     /* Get product from response */
-                    val productList = Json.decodeFromString<List<Product>>(response)
+                    productList = Json.decodeFromString<Array<Product>>(response)
 
-                    /* Give array of products to fragment with bundle*/
-                    val bundle = Bundle()
-                    bundle.putParcelableArray("products", productList.toTypedArray())
-
-
-                    /* Load fragment with bundle */
-                    loadFragment(GameFragment(), bundle)
+                    loadFragment(GameFragment())
 
                 } catch (e : Exception) {
                     Toast.makeText(this, getString(R.string.toast_decode_invalid) , Toast.LENGTH_LONG).show()
@@ -67,10 +74,9 @@ class MainActivity : AppCompatActivity() {
                         val errorCode = error.networkResponse.statusCode
                         val errorBody = JSONObject(error.networkResponse.data.decodeToString()).getString("message")
                         when (errorCode) {
-                            401 ->  {startLoginActivity() }
+                            401 ->  {startLoginActivity()} //invalid authorization
                             else -> Toast.makeText(this, errorBody, Toast.LENGTH_SHORT).show()
                         }
-
                     } catch (e : Exception) {
                         Toast.makeText(this, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
                     }
@@ -84,10 +90,41 @@ class MainActivity : AppCompatActivity() {
                 return headers
             }
         }
-        loadProductRequest.setTag("laodProduct")
+
+        /* Request to get "Guess" for all product */
+        val guessProductRequest = object : StringRequest(
+            Method.GET,
+            Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY_GUESS,
+            {response ->
+                try {
+                    guessProductList = Json.decodeFromString<Array<Guess>>(response)
+                    populateGameLogic()
+                } catch (e : Exception) {
+                    Toast.makeText(this, getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
+                }
+
+
+            },
+            {error ->
+                if (error is VolleyError ||  error == null || error.networkResponse != null) {
+                    startLoginActivity()
+                    finish()
+                } else {
+                    Log.e("GUESS REQ", "error reception main activity guess")
+                }
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = mutableMapOf<String, String>()
+                headers[Constants.HEADER_TOKEN_AUTHORIZATION] = Token().getToken(this@MainActivity)
+                return headers
+            }
+        }
+
+        /* ==================================================================================== */
+
         queue.add(loadProductRequest)
-
-
+        queue.add(guessProductRequest)
 
 
         // navigation View Logic
@@ -115,6 +152,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     private fun loadFragment(fragment: Fragment, data : Bundle? = null) {
         if (data != null) {
             fragment.arguments = data
@@ -131,6 +169,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun populateGameLogic() {
+        if (!productList.isEmpty() && !guessProductList.isEmpty()) {
+            gl.setProducts(productList)
+            gl.setGuess(guessProductList)
 
+        }
+    }
 
 }
