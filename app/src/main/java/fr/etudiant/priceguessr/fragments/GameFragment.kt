@@ -48,43 +48,9 @@ class GameFragment : Fragment() {
         btnPreviousProduct = view.findViewById(R.id.game_page_btn_previous_product)
         btnNextProduct = view.findViewById(R.id.game_page_btn_next_product)
 
-
         val queue = Volley.newRequestQueue(context)
 
-        /* resquest to get "GUESS" for dailty products */
-        val guessProductRequest = object : StringRequest(
-            Method.GET,
-            Constants.API_BASE_URl + Constants.API_PRODUCT_GET_DAILY_GUESS,
-            {response ->
-                /* if the response contain at least one guess to update, we try to decode the response
-                * otherwise there is no guess to update for any product
-                */
-                if (response.toString() != "[]") {
-                    Log.e("GUESS REQ", "reponse is not empty :" + response)
-                    try {
-                        val guessListProduct = JSONArray(response)
 
-                        Log.e("GUESS REQ", guessListProduct.toString())
-                    } catch (e : Exception) {
-                        Toast.makeText(context, getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-            },
-            {error ->
-                    Log.e("GUESS REQ", error.toString() +"error reception main activity guess")
-            }
-        ) {
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = mutableMapOf<String, String>()
-                headers[Constants.HEADER_TOKEN_AUTHORIZATION] = Token().getToken(requireActivity())
-                return headers
-            }
-        }
-
-
-
-        gl = ViewModelProvider(requireActivity()).get(GameLogic::class.java)
         /* if there is no products in gameLogic we get products from the bundle */
         if (gl.isEmpty()) {
             try {
@@ -98,7 +64,6 @@ class GameFragment : Fragment() {
             }
         }
 
-        queue.add(guessProductRequest)
 
 
 

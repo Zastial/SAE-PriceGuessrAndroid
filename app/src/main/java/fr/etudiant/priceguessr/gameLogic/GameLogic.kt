@@ -52,10 +52,16 @@ class GameLogic(): ViewModel() {
     fun setProducts(list: Array<Product>) {
         this.listProduct = mutableListOf()
         for (prod in list) {
+            /* set product with guess by default */
             val guess = Guess()
             listProduct.add(Pair(prod, guess))
         }
         this.index = 0
     }
+
+    fun setGuess(guessProductList: Array<Guess>) {
+
+    }
+
 
 }

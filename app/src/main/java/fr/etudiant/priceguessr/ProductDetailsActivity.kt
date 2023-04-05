@@ -121,7 +121,6 @@ class ProductDetailsActivity : AppCompatActivity() {
 
                 },
                 {error ->
-                    Log.e("ERROR SHOP ", JSONObject(error.networkResponse.data.decodeToString()).getString("message"))
                     /* Prevent if API is not running  */
                     if (error is VolleyError ||  error == null || error.networkResponse != null) {
                         //TODO
