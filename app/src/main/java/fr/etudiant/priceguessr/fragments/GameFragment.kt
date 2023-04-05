@@ -159,14 +159,18 @@ class GameFragment : Fragment() {
     }
 
     /** setValidationButton
-     *  disable the button if user already guessed the price of product or
+     *  disable the button and show price if user already guessed the price of product or
      *  the maximum number of guesses has been reached
      */
     private fun setValidationButton() {
         val guess = gl.getGuess()
-        if (guess !=null) {
+        if (guess != null) {
             btnValidate.isEnabled = !guess.correct && guess.guessRemaining > 0
-            Log.e("PROD is available", btnValidate.isEnabled.toString())
+            if (guess.correct || guess.guessRemaining == 0) {
+                productPriceInput.setText(gl.getProduct()?.price.toString())
+            } else {
+                productPriceInput.setText("")
+            }
         }
     }
 

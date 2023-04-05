@@ -3,6 +3,7 @@ package fr.etudiant.priceguessr.adapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ class ShopAdapter(var listShop : List<Shop>, val context: Context) : RecyclerVie
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val shopName = view.findViewById<TextView>(R.id.item_shop_name)
+        val shopStock = view.findViewById<TextView>(R.id.item_shop_stock)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,6 +34,7 @@ class ShopAdapter(var listShop : List<Shop>, val context: Context) : RecyclerVie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shop = listShop[position]
         holder.shopName.text = shop.name
+        holder.shopStock.text = context.getString(R.string.item_shop_stock).replace("{X}", "${shop.stock}")
 
         holder.itemView.setOnClickListener {
             // Uri for map intent

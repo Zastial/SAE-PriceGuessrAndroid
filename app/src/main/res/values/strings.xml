@@ -93,7 +93,8 @@
     <string name="product_detail_page_dialog_shop_title">Liste des magasins ayant ce produit en stock</string>
 
 
-    
+    <!-- Shop Item -->
+    <string name="item_shop_stock">{X} produits restants</string>
     
 
 

@@ -15,6 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="@string/app_name"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -98,6 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin_page"
         android:text="@string/form_register"
+        style="@style/BlackBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_page_input_confirm_password" />
