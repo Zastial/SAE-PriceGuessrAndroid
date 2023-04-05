@@ -1,10 +1,12 @@
 package fr.etudiant.priceguessr
 
 import android.app.Dialog
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +21,8 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.json.JSONArray
 import org.json.JSONObject
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.security.auth.login.LoginException
 
 class ProductDetailsActivity : AppCompatActivity() {
@@ -32,6 +36,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private lateinit var btnAvailability: Button
     private lateinit var dialogBtnClose: ImageButton
     private lateinit var dialogRecyclerView: RecyclerView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +61,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 Picasso.get().load(data.imgSrc).into(image)
                 title.text = data.title
                 description.text = data.desc
+
                 price.text = data.price.toString()
                 productId = data.id
             }
@@ -106,8 +112,6 @@ class ProductDetailsActivity : AppCompatActivity() {
                         dialogRecyclerView.adapter = shopAdapter
                         dialogRecyclerView.layoutManager = LinearLayoutManager(this)
 
-
-                        
                         
                         dialogShop.show()
 
@@ -117,6 +121,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
                 },
                 {error ->
+                    Log.e("ERROR SHOP ", JSONObject(error.networkResponse.data.decodeToString()).getString("message"))
                     /* Prevent if API is not running  */
                     if (error is VolleyError ||  error == null || error.networkResponse != null) {
                         //TODO

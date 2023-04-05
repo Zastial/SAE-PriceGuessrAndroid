@@ -72,7 +72,7 @@ class GameFragment : Fragment() {
 
             },
             {error ->
-                    Log.e("GUESS REQ", "error reception main activity guess")
+                    Log.e("GUESS REQ", error.toString() +"error reception main activity guess")
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {
@@ -81,7 +81,6 @@ class GameFragment : Fragment() {
                 return headers
             }
         }
-
 
 
 
