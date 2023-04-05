@@ -59,7 +59,13 @@ class GameLogic(): ViewModel() {
     }
 
     fun setGuess(guessProductList: Array<Guess>) {
-
+        for (guess in guessProductList) {
+            if (guess.productId.isNullOrBlank()) {continue}
+            val index = listProduct.indexOfFirst {it.first.id == guess.productId }
+            if (index != -1) {
+                listProduct[index] = Pair(listProduct[index].first, guess)
+            }
+        }
     }
 
 
