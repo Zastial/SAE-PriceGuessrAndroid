@@ -51,12 +51,10 @@ class ProductDetailsActivity : AppCompatActivity() {
         btnAvailability = findViewById(R.id.detail_product_page_btn_availabilitty)
         productId = ""
 
-
-
         try {
             /* get product from the history page (from product adapter) */
             val data = intent.extras?.getParcelable<Product>("product")
-            Log.e("DATA PROD", data.toString())
+
             if (data != null) {
                 Picasso.get().load(data.imgSrc).into(image)
                 title.text = data.title
@@ -65,17 +63,16 @@ class ProductDetailsActivity : AppCompatActivity() {
 
                 val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
                 val date = format.parse(data.date)
-
-                if (DateUtils.isToday(date!!.time)) {
-                    price.text = data.price.toString()
-                } else {
+                if (DateUtils.isToday(date.time)) {
                     price.text = "???"
+                } else {
+                    price.text = data.price.toString()
                 }
             }
 
         } catch (e : Exception) {
             /* invalid product passed to activity */
-            Toast.makeText(this, getString(R.string.toast_decode_invalid)+e.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_decode_invalid), Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -130,8 +127,7 @@ class ProductDetailsActivity : AppCompatActivity() {
                 {error ->
                     /* Prevent if API is not running  */
                     if (error is VolleyError ||  error == null || error.networkResponse != null) {
-                        // TODO
-
+                        Toast.makeText(this, getString(R.string.api_connection_error), Toast.LENGTH_SHORT).show()
                     } else {
                         try {
                             val errorCode = error.networkResponse.statusCode

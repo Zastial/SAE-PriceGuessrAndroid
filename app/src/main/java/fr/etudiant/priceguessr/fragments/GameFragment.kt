@@ -78,10 +78,8 @@ class GameFragment : Fragment() {
                 Request.Method.GET,
                 Constants.API_BASE_URl + Constants.API_PRODUCT_GET_ONE + product!!.id + "/" + priceOfUser,
                 {response ->
-                    Log.e("PROD response in price request", response)
                     try {
                         val actualGuessProduct = gl.getGuess()
-                        Log.e("PROD BEFORE", actualGuessProduct.toString())
                         /* get response */
                         val responseBody = JSONObject(response)
                         val guessRemaining =  responseBody.get("guessRemaining").toString().toInt()
@@ -91,7 +89,6 @@ class GameFragment : Fragment() {
                         actualGuessProduct?.guessRemaining = guessRemaining
                         actualGuessProduct?.correct = guessIsCorrect
                         actualGuessProduct?.correctPriceIsLess = correctPriceIsLess
-                        Log.e("PROD AFTER", gl.getGuess().toString())
 
                         /* modify dialog content */
                         val dialog = Dialog(requireContext())

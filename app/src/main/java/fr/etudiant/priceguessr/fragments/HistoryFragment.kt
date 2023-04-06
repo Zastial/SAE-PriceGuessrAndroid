@@ -50,7 +50,7 @@ class HistoryFragment : Fragment() {
                 }
             },
             {error ->
-                Log.e("HIST", error.toString())
+                Toast.makeText(context, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {

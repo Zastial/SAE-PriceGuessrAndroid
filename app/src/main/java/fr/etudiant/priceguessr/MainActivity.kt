@@ -16,7 +16,7 @@ import fr.etudiant.priceguessr.fragments.GameFragment
 import fr.etudiant.priceguessr.fragments.HistoryFragment
 import fr.etudiant.priceguessr.fragments.ProfilFragment
 import fr.etudiant.priceguessr.gameLogic.GameLogic
-import fr.etudiant.priceguessr.gameLogic.Guess
+import fr.etudiant.priceguessr.models.Guess
 import fr.etudiant.priceguessr.models.Product
 import fr.etudiant.priceguessr.models.Token
 import kotlinx.serialization.decodeFromString
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                     startLoginActivity()
                     finish()
                 } else {
-                    Log.e("GUESS REQ", "error reception main activity guess")
+                    Toast.makeText(this, getString(R.string.toast_unknown_error), Toast.LENGTH_SHORT).show()
                 }
             }
         ) {

@@ -1,4 +1,4 @@
-package fr.etudiant.priceguessr.gameLogic
+package fr.etudiant.priceguessr.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
