@@ -20,6 +20,11 @@ import fr.etudiant.priceguessr.adapter.ProductDecoration
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
+/**
+ * HistoryFragment shows the history of product
+ * When clicking on a product, the activity "ProductDetailsActivity" is started
+ * with a specific product
+ */
 
 class HistoryFragment : Fragment() {
 

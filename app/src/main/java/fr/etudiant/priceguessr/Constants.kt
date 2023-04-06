@@ -24,7 +24,7 @@ class Constants {
 
         /* API_USER can be used to :
         * - DELETE (delete) user
-        * - MODIFY (put) user with body : password?*/
+        * - MODIFY (put) user with body : password */
         val API_USER= "/user"
 
         /* API_AUTH (post)

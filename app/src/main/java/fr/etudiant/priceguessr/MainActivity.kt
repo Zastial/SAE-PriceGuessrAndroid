@@ -23,7 +23,16 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
-
+/**
+ * Main activity is the first activity to be launched
+ * It will take care of redirecting the user if he doesn't have
+ * valid credential (empty token or API request failed)
+ *
+ * The Main activity bind 3 fragments
+ *      - GameFragment : where the user guess the price of the product
+ *      - HistoryFragment : the history of the product
+ *      - ProfilFragment : account settings
+ */
 class MainActivity : AppCompatActivity() {
 
     /* init game logic and two request response (productList, GuessList) */
@@ -38,8 +47,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val navigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        gl = ViewModelProvider(this@MainActivity).get(fr.etudiant.priceguessr.gameLogic.GameLogic::class.java)
-
 
         /*  if token is empty we don't need to call API */
         if (Token().getToken(this@MainActivity).isEmpty()) {
@@ -48,10 +55,10 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        /* ================================    Request   ======================================== */
+        /* ================================    Requests   ======================================== */
 
         val queue = Volley.newRequestQueue(this)
-        /* init GameLogic */
+
 
         /* Request when starting the app */
         val loadProductRequest = object : StringRequest(
@@ -171,9 +178,11 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
+    /**
+     * populateGameLogic waits for the two requests to the API (daily product and guess associated)
+     * to be finished to load the GameFragment
+     */
     private fun populateGameLogic() {
-
         if (productList != null && guessProductList != null) {
             gl.setProducts(productList!!)
             gl.setGuess(guessProductList!!)

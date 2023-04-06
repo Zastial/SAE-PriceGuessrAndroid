@@ -72,7 +72,6 @@ class ProfilFragment() : Fragment() {
                     Constants.API_BASE_URl + Constants.API_USER,
                     {response ->
                         try {
-                            //TODO handle request ?
                             val body = JSONObject(response)
                             val newToken = body.get("jwt")
                             Token().setToken(requireActivity(), newToken.toString())
@@ -127,6 +126,7 @@ class ProfilFragment() : Fragment() {
 
 
         btnLogout.setOnClickListener {
+            /* deconnect the user  */
             Token().deleteToken(requireActivity())
             startLoginActivity()
         }
@@ -145,8 +145,6 @@ class ProfilFragment() : Fragment() {
                     Request.Method.DELETE,
                 Constants.API_BASE_URl + Constants.API_USER,
                     {response ->
-                        //TODO handle response ?
-                        //val body = JSONObject(response)
                         Token().deleteToken(requireActivity())
                         dialogAccount.dismiss()
                         startLoginActivity()
@@ -194,6 +192,7 @@ class ProfilFragment() : Fragment() {
                 }
                 queue.add(deleteAccoutRequest)
             }
+
             btnCancel.setOnClickListener {
                 dialogAccount.dismiss()
             }
@@ -206,7 +205,7 @@ class ProfilFragment() : Fragment() {
 
     /**
      * startLoginActivity
-     * kill all previous activity
+     * flags kill all previous activities
      */
     private fun startLoginActivity() {
         val intent = Intent(requireActivity(), LoginActivity::class.java)

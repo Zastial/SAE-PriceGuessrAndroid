@@ -7,7 +7,7 @@ import fr.etudiant.priceguessr.models.Product
 
 /**
  * GameLogic implements the game logic
- * @param list is list of Product
+ * it maintains the logic of the game between products and guesses
  */
 class GameLogic(): ViewModel() {
 
@@ -59,6 +59,12 @@ class GameLogic(): ViewModel() {
         this.index = 0
     }
 
+    /**
+     * setGuess update the "Guess" of a product
+     * thanks to his id
+     *
+     * @param guessProductList array of guess
+     */
     fun setGuess(guessProductList: Array<Guess>) {
         for (guess in guessProductList) {
             if (guess.productId.isNullOrBlank()) {continue}

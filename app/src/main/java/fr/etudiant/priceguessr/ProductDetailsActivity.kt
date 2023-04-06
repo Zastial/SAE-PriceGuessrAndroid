@@ -25,6 +25,14 @@ import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.*
 
+
+/**
+ * ProductDetailsActivity shows the details of product (title, image, description, price)
+ * In this activity we can see a list of shops where the product is available
+ * Click on a shop redirect to google map with the localisation of the shop
+ *
+ * NB: the price is not shown if it is part of the products of the day
+ */
 class ProductDetailsActivity : AppCompatActivity() {
 
     private lateinit var productId: String
